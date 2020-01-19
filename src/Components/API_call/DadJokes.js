@@ -12,8 +12,11 @@ const useStyles = makeStyles({
 		minWidth: 275
 	},
 	title: {
-		fontSize: 14,
-		backgroundColor: '#0051dc'
+		fontSize: 20,
+		padding: 10,
+		borderRadius: 5,
+		color: '#fff',
+		backgroundColor: '#333'
 	},
 	pos: {
 		marginBottom: 12
@@ -27,12 +30,16 @@ const DadJokes = () => {
 	useEffect(() => {
 		axios
 			.get('https://icanhazdadjoke.com/', { headers: { Accept: 'application/json' } })
-			.then((res) => console.log(res.data))
+			.then((res) => setJoke(res.data))
 			.catch((err) => console.log(err));
-	});
+	}, []);
 
 	const clickHandler = () => {
 		console.log('Chala');
+		axios
+			.get('https://icanhazdadjoke.com/', { headers: { Accept: 'application/json' } })
+			.then((res) => setJoke(res.data))
+			.catch((err) => console.log(err));
 	};
 
 	return (
