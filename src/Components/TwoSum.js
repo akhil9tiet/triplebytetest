@@ -1,22 +1,25 @@
 import React from 'react';
 
-const TwoSum = (nums, target) => {
-	var diff = {};
+const TwoSum = (props) => {
+	console.log('nums', props.nums);
+	console.log('target', props.target);
+	var diffObj = {};
 
-	for (let i = 0; i < nums.legth; i++) {
-		if (nums[i] > target) {
-			continue;
-		} else {
-			console.log("diff",diff);
-			diff.i = target - nums[i];
-		}
+	for (let i=0; i<props.nums.length; i++){
+		const diff = props.target - props.nums[i];
+		diffObj[diff] = i;
 	}
-
-	for (let i = 0; i < nums.length; i++) {
-		if (diff[i] === nums[i]) {
-			return <p>{helo}</p>;
-		}
+	// console.log(diffObj);
+	// console.log(diffObj);
+	const resultArr = [];
+	for (let j = 0; j < props.nums.length; j++) {
+		const num = props.nums[j];
+		if (diffObj.hasOwnProperty(props.nums[j]) && diffObj[num] !== j) {
+			 resultArr.push([j, diffObj[num]]);
+		}	
 	}
+	console.log(resultArr)
+	return (<p>Hellow</p>);
 };
 
 export default TwoSum;
