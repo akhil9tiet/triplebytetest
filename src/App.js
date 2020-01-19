@@ -6,9 +6,9 @@ import Paper from '@material-ui/core/Paper';
 function App() {
 	return (
 		<React.Fragment>
-			{/* <Paper>
+			<Paper>
 				<Cards />
-			</Paper> */}
+			</Paper>
 			<Paper>
 				<TwoSum nums={[2, 7, 11, 15]} target={9} />
 			</Paper>
