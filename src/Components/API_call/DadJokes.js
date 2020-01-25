@@ -35,7 +35,7 @@ const DadJokes = () => {
 	}, []);
 
 	const clickHandler = () => {
-		console.log('Chala');
+		// console.log('Chala');
 		axios
 			.get('https://icanhazdadjoke.com/', { headers: { Accept: 'application/json' } })
 			.then((res) => setJoke(res.data))

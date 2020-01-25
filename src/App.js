@@ -2,6 +2,10 @@ import React from 'react';
 import Cards from './Components/Cards/Cards';
 import DadJokes from './Components/API_call/DadJokes';
 import TwoSum from './Components/TwoSum';
+import TwoMovies from './Components/TwoMovieProblem';
+import Solution from './Components/chat-app-problem';
+
+import { Switch, Route } from 'react-router-dom';
 import Report from './Components/ServerLogs/Report';
 import Paper from '@material-ui/core/Paper';
 
@@ -29,6 +33,12 @@ function App() {
 			<Paper>
 				<Report logs={logs} />
 			</Paper>
+
+			<Paper>
+				<TwoMovies movies={[90, 86, 75, 60, 120, 150, 125]} duration={250} />
+			</Paper>
+
+			<Solution messages={'Rainbod'} />
 		</React.Fragment>
 	);
 }

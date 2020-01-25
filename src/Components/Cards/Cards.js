@@ -8,7 +8,7 @@ const Columns = (props) => {
 	const [card, setCard] = react.useState([]);
 
 	function appendChild() {
-		console.log(card);
+		// console.log(card);
 		setCard([...card, 'NewCard']);
 	}
 
