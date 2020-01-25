@@ -31,23 +31,26 @@ export default function TemporaryDrawer() {
 		setState({ ...state, [side]: open });
 	};
 
-	const sideList = (side) => (
-		<div
-			className={classes.list}
-			role='presentation'
-			onClick={toggleDrawer(side, false)}
-			onKeyDown={toggleDrawer(side, false)}>
-			<List>
-				{['dad-jokes', 'list-cards'].map((text, index) => (
-					<ListItem button key={text}>
-						<Link to={`/${text}`}>
-							<ListItemText primary={text} />
-						</Link>
-					</ListItem>
-				))}
-			</List>
-		</div>
-	);
+	const sideList = (side) => {
+		const pages = ['dad-jokes', 'list-cards'];
+		return (
+			<div
+				className={classes.list}
+				role='presentation'
+				onClick={toggleDrawer(side, false)}
+				onKeyDown={toggleDrawer(side, false)}>
+				<List>
+					{pages.map((text, index) => (
+						<ListItem button key={text}>
+							<Link to={`/${text}`}>
+								<ListItemText primary={text} />
+							</Link>
+						</ListItem>
+					))}
+				</List>
+			</div>
+		);
+	};
 
 	return (
 		<div>
