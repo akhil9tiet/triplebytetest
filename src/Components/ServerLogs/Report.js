@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 
 const Report = (props) => {
 	var count = 0;
@@ -32,7 +32,7 @@ const Report = (props) => {
 
 	return (
 		<React.Fragment>
-			<Table>
+			{/* <Table>
 				<thead>
 					<tr>
 						<th>Filename</th>
@@ -47,6 +47,22 @@ const Report = (props) => {
 						</tr>
 					))}
 				</tbody>
+			</Table> */}
+			<Table>
+				<TableHead>
+					<TableRow>
+						<TableCell>FineName</TableCell>
+						<TableCell>Bytes</TableCell>
+					</TableRow>
+				</TableHead>
+				<TableBody>
+					{resultTab.map((row, i) => (
+						<TableRow key={i}>
+							<TableCell>{row[0]}</TableCell>
+							<TableCell>{row[1]}</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
 			</Table>
 		</React.Fragment>
 	);
