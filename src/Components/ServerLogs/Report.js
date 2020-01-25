@@ -5,11 +5,8 @@ const Report = (props) => {
 	var count = 0;
 	// const [data, setData] = useState({ data: [], count: 0 });
 
-	// console.log('props in component', props);
 	const logs = props.logs;
-	console.log('props in component', props.logs);
 	var resultTab = [];
-
 	logs.map((log) => {
 		const logArr = log.split(' ');
 		const reqMessage = logArr[2].substring(1);
@@ -32,22 +29,6 @@ const Report = (props) => {
 
 	return (
 		<React.Fragment>
-			{/* <Table>
-				<thead>
-					<tr>
-						<th>Filename</th>
-						<th>Bytes</th>
-					</tr>
-				</thead>
-				<tbody>
-					{resultTab.map((row, i) => (
-						<tr key={i}>
-							<td>{row[0]}</td>
-							<td>{row[1]}</td>
-						</tr>
-					))}
-				</tbody>
-			</Table> */}
 			<Table>
 				<TableHead>
 					<TableRow>
@@ -66,7 +47,6 @@ const Report = (props) => {
 			</Table>
 		</React.Fragment>
 	);
-	// return <h2>Akhil</h2>;
 };
 
 export default Report;

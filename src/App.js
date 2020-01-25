@@ -6,8 +6,6 @@ import SideDrawer from './Components/SideDrawer';
 import Report from './Components/ServerLogs/Report';
 import { Switch, Route } from 'react-router-dom';
 
-// import Paper from '@material-ui/core/Paper';
-
 function App() {
 	const logs = [
 		'[01/Aug/1995:00:54:59 -0400] "GET /images/opf-logo.gif HTTP/1.0" 200 32511',
@@ -30,27 +28,9 @@ function App() {
 					exact
 					path='/server-logs'
 					render={(props) => {
-						console.log('props', props);
-						console.log('logs', logs);
-
 						return <Report logs={logs} {...props} />;
 					}}></Route>
 			</Switch>
-			{/* <Paper>
-				<Cards />
-			</Paper> */}
-			{/*<Paper>
-				<DadJokes />
-			</Paper>
-			<Paper>
-				<Report logs={logs} />
-			</Paper> */}
-
-			{/* <Paper>
-				<TwoMovies movies={[90, 86, 75, 60, 120, 150, 125]} duration={250} />
-			</Paper> */}
-
-			{/* <Solution messages={'Rainbod'} /> */}
 		</React.Fragment>
 	);
 }
