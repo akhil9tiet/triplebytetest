@@ -1,9 +1,7 @@
 import React from 'react';
 import Cards from './Components/Cards/Cards';
 import DadJokes from './Components/API_call/DadJokes';
-import TwoSum from './Components/TwoSum';
-import TwoMovies from './Components/TwoMovieProblem';
-import Solution from './Components/chat-app-problem';
+import SideDrawer from './Components/SideDrawer';
 
 import { Switch, Route } from 'react-router-dom';
 import Report from './Components/ServerLogs/Report';
@@ -21,11 +19,9 @@ function App() {
 
 	return (
 		<React.Fragment>
+			<SideDrawer />
 			<Paper>
 				<Cards />
-			</Paper>
-			<Paper>
-				<TwoSum nums={[2, 7, 11, 15]} target={9} />
 			</Paper>
 			<Paper>
 				<DadJokes />
@@ -34,11 +30,11 @@ function App() {
 				<Report logs={logs} />
 			</Paper>
 
-			<Paper>
+			{/* <Paper>
 				<TwoMovies movies={[90, 86, 75, 60, 120, 150, 125]} duration={250} />
-			</Paper>
+			</Paper> */}
 
-			<Solution messages={'Rainbod'} />
+			{/* <Solution messages={'Rainbod'} /> */}
 		</React.Fragment>
 	);
 }
