@@ -24,8 +24,8 @@ function App() {
 			<Switch>
 				<Route exact path='/' component={Home} />
 				<Route path='/home' component={Home} />
-				{/* <Route exact path='/dad-jokes' component={DadJokes} />
-				<Route exact path='/cards' component={Cards}></Route> */}
+				<Route exact path='/dad-jokes' component={DadJokes} />
+				<Route exact path='/list-cards' component={Cards}></Route>
 				{/* <Route exact path='/server-logs' render={(props) => <Report {...props} />}></Route> */}
 			</Switch>
 			{/* <Paper>
