@@ -2,33 +2,34 @@ import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
 
 const Report = (props) => {
-	// var count = 0;
-	const [data, setData] = useState({ data: [], count: 0 });
+	var count = 0;
+	// const [data, setData] = useState({ data: [], count: 0 });
 
-	const { logs } = props;
-
+	// console.log('props in component', props);
+	const logs = props.logs;
+	console.log('props in component', props.logs);
 	var resultTab = [];
 
-	// logs.map((log) => {
-	// 	const logArr = log.split(' ');
-	// 	const reqMessage = logArr[2].substring(1);
-	// 	const fileName = logArr[3];
-	// 	const resCode = logArr[5];
-	// 	const bytes = logArr[6];
-	// 	if (!logArr.length === 6) {
-	// 		return <h1>Error!! there is an error with: {log} </h1>;
-	// 	} else {
-	// 		if (reqMessage === 'GET') {
-	// 			if (resCode[0] === '2') {
-	// 				if (count < 10) {
-	// 					count++;
-	// 					return resultTab.push([fileName, bytes]);
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-  // });
-  
+	logs.map((log) => {
+		const logArr = log.split(' ');
+		const reqMessage = logArr[2].substring(1);
+		const fileName = logArr[3];
+		const resCode = logArr[5];
+		const bytes = logArr[6];
+		if (!logArr.length === 6) {
+			return <h1>Error!! there is an error with: {log} </h1>;
+		} else {
+			if (reqMessage === 'GET') {
+				if (resCode[0] === '2') {
+					if (count < 10) {
+						count++;
+						return resultTab.push([fileName, bytes]);
+					}
+				}
+			}
+		}
+	});
+
 	return (
 		<React.Fragment>
 			<Table>
@@ -49,6 +50,7 @@ const Report = (props) => {
 			</Table>
 		</React.Fragment>
 	);
+	// return <h2>Akhil</h2>;
 };
 
 export default Report;

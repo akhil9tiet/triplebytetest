@@ -32,7 +32,7 @@ export default function TemporaryDrawer() {
 	};
 
 	const sideList = (side) => {
-		const pages = ['dad-jokes', 'list-cards'];
+		const pages = ['dad-jokes', 'list-cards', 'server-logs'];
 		return (
 			<div
 				className={classes.list}
