@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router } from 'react-router-dom';
+// import { Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
+import { Router } from 'react-router';
+import History from './history';
 
 ReactDOM.render(
-	<Router>
+	<Router history={History}>
 		<App />
 	</Router>,
 	document.getElementById('root')
