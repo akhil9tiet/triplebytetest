@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
 import './ContactUs.css';
 
@@ -9,33 +9,58 @@ const ContactUs = () => {
 		message: ''
 	});
 
-	// useEffect(() => {
-	// 	console.log(details);
-	// }, [details]);
+	const inputChangeHandler = (event) => {
+		const { name, value } = event.target;
+		setDetails({ ...details, [name]: value });
+	};
+
+	const submitHandler = (event) => {
+		console.log('state', details);
+		event.preventDefault(); // event has a method which prevents page refreshings
+	};
 
 	return (
 		<React.Fragment>
-			<form>
-				<div className='form-group'>
-					<label>
-						Name:
-						<input type='text' onChange={(e) => setDetails({ name: e.target.value })} />
-					</label>
-					<label htmlFor='exampleInputEmail1'>
-						Email:{' '}
-						<input
-							type='email'
-							aria-describedby='emailHelp'
-							onChange={(e) => setDetails({ email: e.target.value })}
-						/>
-					</label>
-					<label htmlFor='message'>
-						Message:
-						<textarea rows='10' onChange={(e) => setDetails({ message: e.target.value })}></textarea>{' '}
-					</label>
-				</div>
-				<button type='submit'>Send</button>
-			</form>
+			{/* {!details ? ( */}
+				<form onSubmit={submitHandler}>
+					<div className='form-group'>
+						<label>
+							Name:
+							<input
+								type='text'
+								name='name'
+								placeholder='Alex'
+								value={details.name}
+								onChange={inputChangeHandler}
+							/>
+						</label>
+						<label htmlFor='exampleInputEmail1'>
+							Email:{' '}
+							<input
+								type='email'
+								name='email'
+								placeholder='alex@xyz.com'
+								value={details.email}
+								aria-describedby='emailHelp'
+								onChange={inputChangeHandler}
+							/>
+						</label>
+						<label htmlFor='message'>
+							Message:
+							<textarea
+								type='text'
+								name='message'
+								placeholder='Your Message'
+								value={details.message}
+								rows='10'
+								onChange={inputChangeHandler}></textarea>{' '}
+						</label>
+					</div>
+					<button type='submit'>Send</button>
+				</form>
+			{/* ) : (
+				<p>Your message has been received</p>
+			)} */}
 		</React.Fragment>
 	);
 };
