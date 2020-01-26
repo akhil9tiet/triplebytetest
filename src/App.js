@@ -4,6 +4,7 @@ import Cards from './Components/Cards/Cards';
 import DadJokes from './Components/API_call/DadJokes';
 import SideDrawer from './Components/SideDrawer';
 import SendPropsUp from './Components/SendPropsUp';
+import ContactUs from './Components/ContactUs';
 import Report from './Components/ServerLogs/Report';
 import { Switch, Route } from 'react-router-dom';
 
@@ -27,6 +28,7 @@ function App() {
 				<Route exact path='/list-cards' component={Cards}></Route>
 				<Route exact path='/server-logs' render={(props) => <Report logs={logs} {...props} />}></Route>
 				<Route exact path='/send-props-up' component={SendPropsUp}></Route>
+				<Route exact path='/contact-us' component={ContactUs}></Route>
 			</Switch>
 		</React.Fragment>
 	);
