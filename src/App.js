@@ -3,6 +3,7 @@ import Home from './Components/Home';
 import Cards from './Components/Cards/Cards';
 import DadJokes from './Components/API_call/DadJokes';
 import SideDrawer from './Components/SideDrawer';
+import SendPropsUp from './Components/SendPropsUp';
 import Report from './Components/ServerLogs/Report';
 import { Switch, Route } from 'react-router-dom';
 
@@ -24,12 +25,8 @@ function App() {
 				<Route path='/home' component={Home} />
 				<Route exact path='/dad-jokes' component={DadJokes} />
 				<Route exact path='/list-cards' component={Cards}></Route>
-				<Route
-					exact
-					path='/server-logs'
-					render={(props) => {
-						return <Report logs={logs} {...props} />;
-					}}></Route>
+				<Route exact path='/server-logs' render={(props) => <Report logs={logs} {...props} />}></Route>
+				<Route exact path='/send-props-up' component={SendPropsUp}></Route>
 			</Switch>
 		</React.Fragment>
 	);
