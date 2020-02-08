@@ -18,23 +18,23 @@ function App() {
 		'[01/Aug/1995:00:55:06 -0400] "GET /images/ksclogosmall.gif HTTP/1.0" 403 298',
 		'[01/Aug/1995:00:55:09 -0400] "GET /images/ksclogosmall.gif HTTP/1.0" 200 3635',
 		'[01/Aug/1995:00:55:18 -0400] "GET /images/opf-logo.gif HTTP/1.0" 200 32511',
-		'[01/Aug/1995:00:56:52 -0400] "GET /images/ksclogosmall.gif HTTP/1.0" 200 36'
+		'[01/Aug/1995:00:56:52 -0400] "GET /images/ksclogosmall.gif HTTP/1.0" 200 36',
 	];
 
 	return (
 		<React.Fragment>
 			<SideDrawer />
 			<Switch>
-				<div className="body">
-					<Route exact path='/' component={Home} />
-					<Route path='/home' component={Home} />
-					<Route exact path='/dad-jokes' component={DadJokes} />
-					<Route exact path='/live-search' component={LiveSearch} />
-					<Route exact path='/list-cards' component={Cards}></Route>
-					<Route exact path='/server-logs' render={(props) => <Report logs={logs} {...props} />}></Route>
-					<Route exact path='/send-props-up' component={SendPropsUp}></Route>
-					<Route exact path='/contact-us' component={ContactUs}></Route>
-				</div>
+				{/* <div className="body"> */}
+				<Route exact path='/' component={Home} />
+				<Route path='/home' component={Home} />
+				<Route exact path='/dad-jokes' component={DadJokes} />
+				<Route exact path='/live-search' component={LiveSearch} />
+				<Route exact path='/list-cards' component={Cards}></Route>
+				<Route exact path='/server-logs' render={(props) => <Report logs={logs} {...props} />}></Route>
+				<Route exact path='/send-props-up' component={SendPropsUp}></Route>
+				<Route exact path='/contact-us' component={ContactUs}></Route>
+				{/* </div> */}
 			</Switch>
 		</React.Fragment>
 	);

@@ -1,0 +1,35 @@
+.liveSearch__container{
+  margin: 20px auto;
+  widows: 100%;
+  max-width: 800px;
+}
+
+.liveSearch__heading{
+  font-size: 3rem;
+  padding: 10px 0;
+  color: #2b2b2b;
+  text-align: center;
+}
+
+.search-label{
+  position: relative;
+}
+
+.liveSearch__container input{
+  width: 90%;
+  padding: 20px;
+  font-size: 24px;
+  font-style: italic;
+  color:#2b2b2b;
+  box-sizing: border-box;
+  outline:none;
+  
+}
+
+.liveSearch__icon{
+  position: absolute;
+  top: -10px;
+  font-size: 20px ;
+  color: #2b2b2b;
+  right: 18px;
+}
