@@ -2,11 +2,14 @@ import React from 'react';
 import Home from './Components/Home';
 import Cards from './Components/Cards/Cards';
 import DadJokes from './Components/API_call/DadJokes';
+import LiveSearch from './Components/LiveSearch';
 import SideDrawer from './Components/SideDrawer';
 import SendPropsUp from './Components/SendPropsUp';
 import ContactUs from './Components/ContactUs';
 import Report from './Components/ServerLogs/Report';
 import { Switch, Route } from 'react-router-dom';
+
+import './App.css';
 
 function App() {
 	const logs = [
@@ -22,13 +25,16 @@ function App() {
 		<React.Fragment>
 			<SideDrawer />
 			<Switch>
-				<Route exact path='/' component={Home} />
-				<Route path='/home' component={Home} />
-				<Route exact path='/dad-jokes' component={DadJokes} />
-				<Route exact path='/list-cards' component={Cards}></Route>
-				<Route exact path='/server-logs' render={(props) => <Report logs={logs} {...props} />}></Route>
-				<Route exact path='/send-props-up' component={SendPropsUp}></Route>
-				<Route exact path='/contact-us' component={ContactUs}></Route>
+				<div className="body">
+					<Route exact path='/' component={Home} />
+					<Route path='/home' component={Home} />
+					<Route exact path='/dad-jokes' component={DadJokes} />
+					<Route exact path='/live-search' component={LiveSearch} />
+					<Route exact path='/list-cards' component={Cards}></Route>
+					<Route exact path='/server-logs' render={(props) => <Report logs={logs} {...props} />}></Route>
+					<Route exact path='/send-props-up' component={SendPropsUp}></Route>
+					<Route exact path='/contact-us' component={ContactUs}></Route>
+				</div>
 			</Switch>
 		</React.Fragment>
 	);
