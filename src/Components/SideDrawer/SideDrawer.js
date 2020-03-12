@@ -37,7 +37,8 @@ export default function TemporaryDrawer() {
 			"live-search",
 			'list-cards', 
 			'server-logs', 
-			'send-props-up', 
+			'send-props-up',
+			'traffic-light',
 			'contact-us'];
 		return (
 			<div

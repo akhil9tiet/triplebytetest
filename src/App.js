@@ -7,6 +7,7 @@ import SideDrawer from './Components/SideDrawer';
 import SendPropsUp from './Components/SendPropsUp';
 import ContactUs from './Components/ContactUs';
 import Report from './Components/ServerLogs/Report';
+import TrafficLight from './Components/TrafficLight';
 import { Switch, Route } from 'react-router-dom';
 
 import './App.css';
@@ -34,6 +35,7 @@ function App() {
 				<Route exact path='/server-logs' render={(props) => <Report logs={logs} {...props} />}></Route>
 				<Route exact path='/send-props-up' component={SendPropsUp}></Route>
 				<Route exact path='/contact-us' component={ContactUs}></Route>
+				<Route exact path='/traffic-light' component={TrafficLight}></Route>
 				{/* </div> */}
 			</Switch>
 		</React.Fragment>
