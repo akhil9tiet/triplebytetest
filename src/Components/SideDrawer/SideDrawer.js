@@ -10,17 +10,17 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles({
 	list: {
-		width: 250
+		width: 250,
 	},
 	fullList: {
-		width: 'auto'
-	}
+		width: 'auto',
+	},
 });
 
 export default function TemporaryDrawer() {
 	const classes = useStyles();
 	const [state, setState] = React.useState({
-		left: false
+		left: false,
 	});
 
 	const toggleDrawer = (side, open) => (event) => {
@@ -33,13 +33,15 @@ export default function TemporaryDrawer() {
 
 	const sideList = (side) => {
 		const pages = [
-			'dad-jokes', 
-			"live-search",
-			'list-cards', 
-			'server-logs', 
+			'dad-jokes',
+			'live-search',
+			'list-cards',
+			'server-logs',
 			'send-props-up',
 			'traffic-light',
-			'contact-us'];
+			'svg-path-scroller',
+			'contact-us',
+		];
 		return (
 			<div
 				className={classes.list}
