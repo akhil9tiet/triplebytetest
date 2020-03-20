@@ -28,9 +28,10 @@ const ReadingProgress = ({ target }) => {
 		return () => window.removeEventListener('scroll', scrollListener);
 	});
 
+	console.log(readingProgress);
+
 	return (
 		<div
-			className={'progress-bar'}
 			style={{
 				width: `${readingProgress}%`,
 				position: 'sticky',
@@ -56,17 +57,6 @@ const SVGPathScroller = () => {
 		<React.Fragment>
 			<ReadingProgress target={target} />
 			<div className='body' ref={target} style={bodyStyle}>
-				<h1>PathScroller</h1>
-				<h1>PathScroller</h1>
-				<h1>PathScroller</h1>
-				<h1>PathScroller</h1>
-				<h1>PathScroller</h1>
-				<h1>PathScroller</h1>
-				<h1>PathScroller</h1>
-				<h1>PathScroller</h1>
-				<h1>PathScroller</h1>
-				<h1>PathScroller</h1>
-				<h1>PathScroller</h1>
 				<h1>PathScroller</h1>
 			</div>
 		</React.Fragment>
