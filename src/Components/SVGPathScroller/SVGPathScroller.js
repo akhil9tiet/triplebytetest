@@ -1,6 +1,7 @@
 import React, { useState, createRef, useEffect } from 'react';
 
 const ReadingProgress = ({ target }) => {
+	console.log(target);
 	const [readingProgress, setReadingProgress] = useState(0);
 	const scrollListener = () => {
 		if (!target.current) {
@@ -31,16 +32,21 @@ const ReadingProgress = ({ target }) => {
 	console.log(readingProgress);
 
 	return (
-		<div
-			style={{
-				width: `${readingProgress}%`,
-				position: 'sticky',
-				height: '5px',
-				top: 0,
-				backgroundColor: '#fee000',
-			}}
-		/>
+		<React.Fragment>
+			<div
+				style={{
+					width: `${readingProgress}%`,
+					position: 'sticky',
+					height: '5px',
+					top: 0,
+					backgroundColor: '#fee000',
+				}}
+			/>
+			<br />
+		</React.Fragment>
 	);
+
+	return readingProgress;
 };
 
 const SVGPathScroller = () => {
