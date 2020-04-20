@@ -11,6 +11,7 @@ import TrafficLight from './Components/TrafficLight';
 import SVGPathScroller from './Components/SVGPathScroller';
 import ScrollProgress from './Components/SVGPathScroller/ScrollProgress';
 import DeltaIsometric from './Components/DeltaIsometric';
+import IMDBapi from './Components/IMDBapi';
 import { Switch, Route } from 'react-router-dom';
 
 import './App.css';
@@ -42,6 +43,7 @@ function App() {
 				<Route exact path='/svg-path-scroller' component={SVGPathScroller}></Route>
 				<Route exact path='/scroll-progress' component={ScrollProgress}></Route>
 				<Route exact path='/delta-isometric' component={DeltaIsometric}></Route>
+				<Route exact path='/imdb-api' component={IMDBapi}></Route>
 				{/* </div> */}
 			</Switch>
 		</React.Fragment>
