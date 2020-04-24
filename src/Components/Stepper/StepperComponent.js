@@ -4,7 +4,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import {Consent, ChooseMethod, VerifyCode } from './Comps';
 
 function getSteps() {
 	return ['Consent', 'Verification Method', 'Verify Code'];
@@ -13,11 +13,11 @@ function getSteps() {
 function getStepContent(stepIndex) {
 	switch (stepIndex) {
 		case 0:
-			return 'Select campaign settings...';
+			return <Consent />;
 		case 1:
-			return 'What is an ad group anyways?';
+			return <ChooseMethod />;
 		case 2:
-			return 'This is the bit I really care about!';
+			return <VerifyCode />;
 		default:
 			return 'Unknown stepIndex';
 	}
