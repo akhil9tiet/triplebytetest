@@ -42,6 +42,7 @@ export default function TemporaryDrawer() {
 			'svg-path-scroller',
 			'contact-us',
 			'delta-isometric',
+			'stepper',
 		];
 		return (
 			<div
