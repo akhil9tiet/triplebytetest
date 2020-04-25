@@ -10,6 +10,21 @@ import Grid from '@material-ui/core/Grid';
 function getSteps() {
 	return ['Consent', 'Verification Method', 'Verify Code'];
 }
+// eZM_kVDSkW3niM4D0uhwgQwk9LxKZr62H2dcfItP;
+//demo data
+const data = {
+	userdata: { userId: 139939304445, 
+		userName: 'Akhil Gupta', 
+		deatils:[
+			{type:'phone', value: '2404767867'}, 
+			{type:'phone', value: 'akhil9tiet@gmail.com' }
+		]},
+	client: { name: 'XUZ', 
+	logo:'https://github.com/account',
+	redirectFrom: 'https://akhil9tiet.github.io', 
+	redirectTo: 'https://akhil9tiet.github.io' },
+	otpValue:''
+};
 
 function getStepContent(stepIndex) {
 	switch (stepIndex) {
