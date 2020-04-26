@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Consent, ChooseMethod, VerifyCode, Success, Error } from './Comps';
 import Grid from '@material-ui/core/Grid';
+import './Stepper.style.css';
 
 function getSteps() {
 	return ['Consent', 'Verification Method', 'Verify Code'];
@@ -31,20 +32,38 @@ const data = {
 	otpValue: '',
 };
 
-function getStepContent(stepIndex) {
-	switch (stepIndex) {
-		case 0:
-			return <Consent />;
-		case 1:
-			return <ChooseMethod />;
-		case 2:
-			return <VerifyCode />;
-		case 3:
-			return <Success />;
-		default:
-			return <Error />;
-	}
-}
+// function getStepContent(stepIndex) {
+// 	switch (stepIndex) {
+// 		case 0:
+// 			return <Consent />;
+// 		case 1:
+// 			return <ChooseMethod />;
+// 		case 2:
+// 			return <VerifyCode />;
+// 		case 3:
+// 			return <Success />;
+// 		default:
+// 			return <Error />;
+// 	}
+// }
+
+const pages = [
+	(style) => (
+		<animated.div style={{ ...style, color: '#ff2' }}>
+			<Consent />
+		</animated.div>
+	),
+	(style) => (
+		<animated.div style={{ ...style, color: '#ff2' }}>
+			<ChooseMethod />
+		</animated.div>
+	),
+	(style) => (
+		<animated.div style={{ ...style, color: '#ff2' }}>
+			<VerifyCode />
+		</animated.div>
+	),
+];
 
 function buttonName(stepIndex) {
 	switch (stepIndex) {
@@ -74,7 +93,7 @@ const StepperComponent = () => {
 	};
 
 	return (
-		<div style={{ paddingLeft: 150 }}>
+		<div style={{ paddingLeft: 50 }}>
 			<Grid container spacing={3}>
 				<Grid item xs={12}>
 					<Stepper activeStep={activeStep} alternativeLabel>
@@ -91,24 +110,29 @@ const StepperComponent = () => {
 						// 	<Typography>All steps completed</Typography>
 						// 	<Button onClick={handleReset}>Reset</Button>
 						// </div>
-						<Success />
+						(style) => (
+							<animated.div style={{ ...style, color: '#ff2' }}>
+								<Success />
+							</animated.div>
+						)
 					) : (
-						<div>
-							{/* <Transition
+						<div className='main'>
+							<Transition
 								native
 								reset
 								unique
 								items={activeStep}
 								from={{ opacity: 0, transform: 'translate3d(100%,0,0)' }}
 								enter={{ opacity: 1, transform: 'translate3d(0%,0,0)' }}
-								leave={{ opacity: 0, transform: 'translate3d(-50%,0,0)' }}> */}
-							{getStepContent(activeStep)}
-							{/* </Transition> */}
+								leave={{ opacity: 0, transform: 'translate3d(-50%,0,0)' }}>
+								{/* {getStepContent(activeStep)} */}
+								{(index) => pages[index]}
+							</Transition>
 						</div>
 					)}
 				</Grid>
 				<Grid item xs={12}>
-					<div>
+					<div className='actions'>
 						<Button
 							disabled={activeStep === 0 || activeStep === 1 || activeStep === steps.length}
 							onClick={handleBack}>
