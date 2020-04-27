@@ -42,6 +42,8 @@ export default function TemporaryDrawer() {
 			'svg-path-scroller',
 			'contact-us',
 			'delta-isometric',
+			'imdb-api',
+			'stepper',
 		];
 		return (
 			<div
