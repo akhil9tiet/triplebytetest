@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import imdb, { Client } from 'imdb-api';
+import Heatmap from './Heatmap';
 // import imdb = require('imdb-api');
 
 const IMDBapi = () => {
@@ -7,7 +8,7 @@ const IMDBapi = () => {
 	useEffect(() => {
 		const cli = new Client({ apiKey: '81e1b710' });
 
-		cli.get({ name: 'The Tiger King' })
+		cli.get({ name: 'Silicon Valley' })
 			.then((things) => {
 				return things.episodes();
 			})
@@ -19,7 +20,7 @@ const IMDBapi = () => {
 
 	console.log('eps', data);
 
-	return <p>IMDBapi</p>;
+	return <Heatmap />;
 };
 
 export default IMDBapi;
