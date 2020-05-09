@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import imdb, { Client } from 'imdb-api';
-import Heatmap from './Heatmap';
+import HeatmapChart from './HeatmapChart';
 // import imdb = require('imdb-api');
 
 const IMDBapi = () => {
@@ -20,7 +20,7 @@ const IMDBapi = () => {
 
 	console.log('eps', data);
 
-	return <Heatmap />;
+	return <HeatmapChart />;
 };
 
 export default IMDBapi;
