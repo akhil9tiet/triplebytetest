@@ -5,7 +5,7 @@ import { max } from 'd3';
 // import imdb = require('imdb-api');
 
 const IMDBapi = () => {
-	const [data, setData] = useState([]);
+	const [data, setData] = useState(null);
 	useEffect(() => {
 		const cli = new Client({ apiKey: '81e1b710' });
 
@@ -30,15 +30,12 @@ const IMDBapi = () => {
 		seasonsArrUnique.forEach((season) =>
 			newData.push({ season: season, episodes: data.filter((e) => e.season === season) })
 		);
-		const seasons = newData.length;
-		const maxEpisodes = max(newData.map((e) => e.episodes.length)) ||1;
-
-		console.log('##seasons', seasons, '##maxEpisodes', maxEpisodes);
-		return { seriesData: newData, seasons: seasons, maxEpisodes: maxEpisodes };
+		return newData;
 	};
-
-	// console.log('NEWDATA', data);
-
+	if (data === null) {
+		console.log('@@loading');
+		return <p>Loading ...</p>;
+	}
 	return <HeatmapChart data={newDataFormatter(data)} />;
 };
 
