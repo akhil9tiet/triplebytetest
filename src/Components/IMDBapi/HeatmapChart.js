@@ -7,17 +7,25 @@ import { scaleLinear } from '@vx/scale';
 import { HeatmapRect } from '@vx/heatmap';
 import { AxisLeft, AxisBottom } from '@vx/axis';
 
-const HeatmapChart = () => {
+const HeatmapChart = ({ seriesData, seasons, maxEpisodes }) => {
+	const [state, setState] = useState({ seriesData, seasons, maxEpisodes });
 	const hot1 = '#77312f';
 	const hot2 = '#f33d15';
-	const cool1 = '#122549';
-	const cool2 = '#b4fbde';
+	const cool1 = '#3df315';
+	const cool2 = '#31772f';
 	const bg = '#fff';
 
-	// const svgRef = useRef();
-	// const [data, setData] = useState([25, 30, 45, 60, 20, 75]);
-	const data = genBins(6, 8);
-	console.log(data);
+	console.log('@@imdbdata:', state.seriesData);
+
+	// accessors
+	// const episodes = (d) => d.episodes;
+	// const rating = (d) => d.rating;
+	// const colorMax = max(data, (d) => max(episodes(d), rating));
+	// const bucketSizeMax = max(data, (d) => episodes(d).length);
+
+	var data = genBins(state.seasons, state.maxEpisodes);
+	data = genBins(6, 10);
+	console.log('##binsdata:', data);
 
 	const max = (data, value = (d) => d) => Math.max(...data.map(value));
 	const min = (data, value = (d) => d) => Math.min(...data.map(value));
@@ -31,28 +39,31 @@ const HeatmapChart = () => {
 
 	// scales
 	const xScale = scaleLinear({
-		domain: [0, data.length],
+		domain: [1, data.length],
 	});
+	console.log(xScale);
+
 	const yScale = scaleLinear({
 		domain: [0, bucketSizeMax],
 	});
-	const circleColorScale = scaleLinear({
-		range: [hot1, hot2],
-		domain: [0, colorMax],
-	});
+	console.log(yScale);
+
 	const rectColorScale = scaleLinear({
 		range: [cool1, cool2],
 		domain: [0, colorMax],
 	});
+	console.log(rectColorScale);
+
 	const opacityScale = scaleLinear({
-		range: [0.1, 1],
+		range: [0.5, 1],
 		domain: [0, colorMax],
 	});
+	console.log(opacityScale);
 
-	let width = 750;
-	let height = 600;
-	let separation = 4;
-	let margin = { top: 60, left: 20, right: 20, bottom: 70 };
+	let width = 540;
+	let height = 500;
+	let separation = 2;
+	let margin = { top: 50, left: 20, right: 20, bottom: 50 };
 
 	let size = width;
 	if (size > margin.left + margin.right) {
@@ -68,9 +79,9 @@ const HeatmapChart = () => {
 	xScale.range([0, xMax]);
 	yScale.range([yMax, 0]);
 
-	useEffect(() => {
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data]); //useEffect only called when data changes
+	// useEffect(() => {
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [data]); //useEffect only called when data changes
 
 	return (
 		<React.Fragment>
@@ -87,8 +98,8 @@ const HeatmapChart = () => {
 						binHeight={binWidth}
 						gap={2}>
 						{(heatmap) => {
-							return heatmap.map((bins) => {
-								return bins.map((bin) => {
+							return heatmap.map((episodes) => {
+								return episodes.map((bin) => {
 									return (
 										<rect
 											key={`heatmap-rect-${bin.row}-${bin.column}`}
@@ -101,7 +112,13 @@ const HeatmapChart = () => {
 											fillOpacity={bin.opacity}
 											onClick={(event) => {
 												const { row, column } = bin;
-												alert(JSON.stringify({ row, column, ...bin.bin }));
+												alert(
+													JSON.stringify({
+														row,
+														column,
+														...bin.bin,
+													})
+												);
 											}}
 										/>
 									);
@@ -111,18 +128,21 @@ const HeatmapChart = () => {
 					</HeatmapRect>
 					<AxisLeft
 						scale={yScale}
+						textAnchor={'middle'}
 						top={margin.top}
 						left={0}
-						label={'Seasons'}
+						label={'Episodes'}
 						stroke={'#1b1a1e'}
 						tickTextFill={'#1b1a1e'}
 					/>
 
 					<AxisBottom
 						top={height - margin.bottom}
+						textAnchor={'middle'}
+						gap={1}
 						scale={xScale}
 						left={0}
-						label={'Episodes'}
+						label={'Seasons'}
 						stroke={'#1b1a1e'}
 						tickTextFill={'#1b1a1e'}
 					/>
