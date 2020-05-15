@@ -1,66 +1,47 @@
+/*****************************************************
+ * Most of the code in here is with the help of self starter from vx charts
+ * https://vx-demo.now.sh/static/docs/vx-heatmap.html
+ ******************************************************/
 import React, { useState, useRef, useEffect } from 'react';
 import './HeatmapChart.css';
 import { Grid } from '@material-ui/core';
 import { Group } from '@vx/group';
-import { genBins } from '@vx/mock-data';
 import { scaleLinear } from '@vx/scale';
 import { HeatmapRect } from '@vx/heatmap';
 import { AxisLeft, AxisBottom } from '@vx/axis';
 
-const HeatmapChart = ({ seriesData, seasons, maxEpisodes }) => {
-	const [state, setState] = useState({ seriesData, seasons, maxEpisodes });
-	const hot1 = '#77312f';
-	const hot2 = '#f33d15';
-	const cool1 = '#3df315';
-	const cool2 = '#31772f';
+const HeatmapChart = ({ data }) => {
+	const low1 = '#77312f';
+	const high1 = '#31772f';
+
 	const bg = '#fff';
-
-	console.log('@@imdbdata:', state.seriesData);
-
-	// accessors
-	// const episodes = (d) => d.episodes;
-	// const rating = (d) => d.rating;
-	// const colorMax = max(data, (d) => max(episodes(d), rating));
-	// const bucketSizeMax = max(data, (d) => episodes(d).length);
-
-	var data = genBins(state.seasons, state.maxEpisodes);
-	data = genBins(6, 10);
-	console.log('##binsdata:', data);
 
 	const max = (data, value = (d) => d) => Math.max(...data.map(value));
 	const min = (data, value = (d) => d) => Math.min(...data.map(value));
 
-	// accessors
+	//accessors;
 	const bins = (d) => d.bins;
 	const count = (d) => d.count;
 
 	const colorMax = max(data, (d) => max(bins(d), count));
+	console.log('@@colormax', colorMax);
 	const bucketSizeMax = max(data, (d) => bins(d).length);
-
+	console.log('@@colormax', colorMax);
 	// scales
 	const xScale = scaleLinear({
 		domain: [1, data.length],
 	});
-	console.log(xScale);
 
 	const yScale = scaleLinear({
-		domain: [0, bucketSizeMax],
+		domain: [1, bucketSizeMax],
 	});
-	console.log(yScale);
 
 	const rectColorScale = scaleLinear({
-		range: [cool1, cool2],
-		domain: [0, colorMax],
+		range: [low1, high1],
+		domain: [7, 10],
 	});
-	console.log(rectColorScale);
 
-	const opacityScale = scaleLinear({
-		range: [0.5, 1],
-		domain: [0, colorMax],
-	});
-	console.log(opacityScale);
-
-	let width = 540;
+	let width = 500;
 	let height = 500;
 	let separation = 2;
 	let margin = { top: 50, left: 20, right: 20, bottom: 50 };
@@ -79,10 +60,6 @@ const HeatmapChart = ({ seriesData, seasons, maxEpisodes }) => {
 	xScale.range([0, xMax]);
 	yScale.range([yMax, 0]);
 
-	// useEffect(() => {
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, [data]); //useEffect only called when data changes
-
 	return (
 		<React.Fragment>
 			<svg width={width} height={height}>
@@ -93,13 +70,12 @@ const HeatmapChart = ({ seriesData, seasons, maxEpisodes }) => {
 						xScale={xScale}
 						yScale={yScale}
 						colorScale={rectColorScale}
-						opacityScale={opacityScale}
 						binWidth={binWidth}
 						binHeight={binWidth}
 						gap={2}>
 						{(heatmap) => {
-							return heatmap.map((episodes) => {
-								return episodes.map((bin) => {
+							return heatmap.map((bins) => {
+								return bins.map((bin) => {
 									return (
 										<rect
 											key={`heatmap-rect-${bin.row}-${bin.column}`}
@@ -109,16 +85,9 @@ const HeatmapChart = ({ seriesData, seasons, maxEpisodes }) => {
 											x={bin.x}
 											y={bin.y}
 											fill={bin.color}
-											fillOpacity={bin.opacity}
 											onClick={(event) => {
 												const { row, column } = bin;
-												alert(
-													JSON.stringify({
-														row,
-														column,
-														...bin.bin,
-													})
-												);
+												alert(JSON.stringify({ row, column, ...bin.bin }));
 											}}
 										/>
 									);
@@ -129,19 +98,19 @@ const HeatmapChart = ({ seriesData, seasons, maxEpisodes }) => {
 					<AxisLeft
 						scale={yScale}
 						textAnchor={'middle'}
-						top={margin.top}
-						left={0}
+						top={margin.top + 10}
+						left={0 - 10 - margin.left - margin.right - separation}
 						label={'Episodes'}
 						stroke={'#1b1a1e'}
 						tickTextFill={'#1b1a1e'}
 					/>
 
 					<AxisBottom
-						top={height - margin.bottom}
+						top={height}
 						textAnchor={'middle'}
-						gap={1}
+						gap={2}
 						scale={xScale}
-						left={0}
+						left={0 - (margin.left + margin.right) / 2}
 						label={'Seasons'}
 						stroke={'#1b1a1e'}
 						tickTextFill={'#1b1a1e'}
