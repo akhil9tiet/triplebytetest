@@ -6,7 +6,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './HeatmapChart.css';
 import { Grid } from '@material-ui/core';
 import { Group } from '@vx/group';
-
+import { withTooltip, Tooltip } from '@vx/tooltip';
 import { scaleLinear } from '@vx/scale';
 import { HeatmapRect } from '@vx/heatmap';
 import { AxisLeft, AxisBottom } from '@vx/axis';
@@ -25,9 +25,12 @@ const HeatmapChart = ({ data }) => {
 	const count = (d) => d.count;
 
 	const colorMax = max(data, (d) => max(bins(d), count));
+	const colorMin = min(data, (d) => min(bins(d), count));
 	console.log('@@colormax', colorMax);
+	console.log('@@colormin', colorMin);
+
 	const bucketSizeMax = max(data, (d) => bins(d).length);
-	console.log('@@max seasosn', bucketSizeMax);
+	console.log('@@max episodes', bucketSizeMax);
 	const seasons = data.length;
 	console.log('@@seasons', seasons);
 	// scales
@@ -42,11 +45,11 @@ const HeatmapChart = ({ data }) => {
 
 	const rectColorScale = scaleLinear({
 		range: [low1, high1],
-		domain: [7, 10],
+		domain: [colorMin, colorMax],
 	});
 
-	let width = 500;
-	let height = 500;
+	let width = seasons * 100;
+	let height = bucketSizeMax * 60;
 	let separation = 2;
 	let margin = { top: 50, left: 20, right: 20, bottom: 50 };
 
@@ -95,6 +98,7 @@ const HeatmapChart = ({ data }) => {
 													alert(JSON.stringify({ row, column, ...bin.bin }));
 												}}></rect>
 											<text
+												// key={`heatmap-rect-${bin.row}-${bin.column}`}
 												dy={'.33em'}
 												x={bin.x + bin.width / 2}
 												y={bin.y + bin.height / 2}
@@ -115,7 +119,7 @@ const HeatmapChart = ({ data }) => {
 						scale={yScale}
 						textAnchor={'middle'}
 						hideAxisLine={true}
-						top={margin.top + 10}
+						top={margin.top + bucketSizeMax}
 						left={0 - 20 - margin.left - margin.right - separation}
 						label={'Episodes'}
 						stroke={'#1b1a1e'}

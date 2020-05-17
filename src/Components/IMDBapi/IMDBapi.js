@@ -65,7 +65,7 @@ const IMDBapi = () => {
 	// return <p>loadfing</p>;
 	return (
 		<React.Fragment>
-			<h2>{seriesName}</h2>
+			<h2 style={{ 'text-align': 'center' }}>{seriesName}</h2>
 			<HeatmapChart data={newDataFormatter(data)} />;
 		</React.Fragment>
 	);
