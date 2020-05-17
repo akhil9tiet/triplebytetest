@@ -6,13 +6,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import './HeatmapChart.css';
 import { Grid } from '@material-ui/core';
 import { Group } from '@vx/group';
+
 import { scaleLinear } from '@vx/scale';
 import { HeatmapRect } from '@vx/heatmap';
 import { AxisLeft, AxisBottom } from '@vx/axis';
 
 const HeatmapChart = ({ data }) => {
-	const low1 = '#77312f';
-	const high1 = '#31772f';
+	const low1 = '#a2202d';
+	const high1 = '#1f2091';
 
 	const bg = '#fff';
 
@@ -26,7 +27,9 @@ const HeatmapChart = ({ data }) => {
 	const colorMax = max(data, (d) => max(bins(d), count));
 	console.log('@@colormax', colorMax);
 	const bucketSizeMax = max(data, (d) => bins(d).length);
-	console.log('@@colormax', colorMax);
+	console.log('@@max seasosn', bucketSizeMax);
+	const seasons = data.length;
+	console.log('@@seasons', seasons);
 	// scales
 	const xScale = scaleLinear({
 		domain: [1, data.length],
@@ -34,6 +37,7 @@ const HeatmapChart = ({ data }) => {
 
 	const yScale = scaleLinear({
 		domain: [1, bucketSizeMax],
+		nice: true,
 	});
 
 	const rectColorScale = scaleLinear({
@@ -77,19 +81,31 @@ const HeatmapChart = ({ data }) => {
 							return heatmap.map((bins) => {
 								return bins.map((bin) => {
 									return (
-										<rect
-											key={`heatmap-rect-${bin.row}-${bin.column}`}
-											className='vx-heatmap-rect'
-											width={bin.width}
-											height={bin.height}
-											x={bin.x}
-											y={bin.y}
-											fill={bin.color}
-											onClick={(event) => {
-												const { row, column } = bin;
-												alert(JSON.stringify({ row, column, ...bin.bin }));
-											}}
-										/>
+										<Group>
+											<rect
+												key={`heatmap-rect-${bin.row}-${bin.column}`}
+												className='vx-heatmap-rect'
+												width={bin.width}
+												height={bin.height}
+												x={bin.x}
+												y={bin.y}
+												fill={bin.color}
+												onClick={(event) => {
+													const { row, column } = bin;
+													alert(JSON.stringify({ row, column, ...bin.bin }));
+												}}></rect>
+											<text
+												dy={'.33em'}
+												x={bin.x + bin.width / 2}
+												y={bin.y + bin.height / 2}
+												fontSize={14}
+												fontFamily='Arial'
+												textAnchor={'middle'}
+												fill={'#fff'}
+												style={{ pointerEvents: 'none' }}>
+												{bin.count}
+											</text>
+										</Group>
 									);
 								});
 							});
@@ -98,8 +114,9 @@ const HeatmapChart = ({ data }) => {
 					<AxisLeft
 						scale={yScale}
 						textAnchor={'middle'}
+						hideAxisLine={true}
 						top={margin.top + 10}
-						left={0 - 10 - margin.left - margin.right - separation}
+						left={0 - 20 - margin.left - margin.right - separation}
 						label={'Episodes'}
 						stroke={'#1b1a1e'}
 						tickTextFill={'#1b1a1e'}
@@ -108,9 +125,10 @@ const HeatmapChart = ({ data }) => {
 					<AxisBottom
 						top={height}
 						textAnchor={'middle'}
-						gap={2}
+						hideAxisLine={true}
+						numTicks={data.length}
 						scale={xScale}
-						left={0 - (margin.left + margin.right) / 2}
+						left={0 - (margin.left + margin.right) / 2 - separation}
 						label={'Seasons'}
 						stroke={'#1b1a1e'}
 						tickTextFill={'#1b1a1e'}

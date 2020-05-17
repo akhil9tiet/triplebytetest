@@ -4,11 +4,12 @@ import HeatmapChart from './HeatmapChart';
 
 const IMDBapi = () => {
 	const [data, setData] = useState(null);
+	var seriesName = 'Silicon Valley';
 	useEffect(() => {
 		// const cli = new Client({ apiKey: '81e1b710' });
 		const cli = new Client({ apiKey: 'd19ea01b' });
 
-		cli.get({ name: 'Silicon Valley' })
+		cli.get({ name: seriesName })
 			.then((things) => {
 				return things.episodes();
 			})
@@ -62,7 +63,12 @@ const IMDBapi = () => {
 		return <p>Loading ...</p>;
 	}
 	// return <p>loadfing</p>;
-	return <HeatmapChart data={newDataFormatter(data)} />;
+	return (
+		<React.Fragment>
+			<h2>{seriesName}</h2>
+			<HeatmapChart data={newDataFormatter(data)} />;
+		</React.Fragment>
+	);
 };
 
 export default IMDBapi;
