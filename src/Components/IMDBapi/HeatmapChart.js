@@ -10,12 +10,13 @@ import { withTooltip, Tooltip } from '@vx/tooltip';
 import { scaleLinear } from '@vx/scale';
 import { HeatmapRect } from '@vx/heatmap';
 import { AxisLeft, AxisBottom } from '@vx/axis';
+import { schemePaired } from 'd3';
 
 const HeatmapChart = ({ data }) => {
 	const low1 = '#a2202d';
 	const high1 = '#1f2091';
 
-	const bg = '#fff';
+	const bg = '#bbb';
 
 	const max = (data, value = (d) => d) => Math.max(...data.map(value));
 	const min = (data, value = (d) => d) => Math.min(...data.map(value));
@@ -48,8 +49,8 @@ const HeatmapChart = ({ data }) => {
 		domain: [colorMin, colorMax],
 	});
 
-	let width = seasons * 100;
-	let height = bucketSizeMax * 60;
+	let width = seasons * 90;
+	let height = bucketSizeMax * 55;
 	let separation = 2;
 	let margin = { top: 50, left: 20, right: 20, bottom: 50 };
 
@@ -64,14 +65,21 @@ const HeatmapChart = ({ data }) => {
 	const binWidth = xMax / data.length;
 	const binHeight = yMax / bucketSizeMax;
 
-	xScale.range([0, xMax]);
-	yScale.range([yMax, 0]);
+	xScale.range([1, xMax]);
+	yScale.range([yMax, 1]);
 
 	return (
 		<React.Fragment>
 			<svg width={width} height={height}>
-				<rect x={0} y={0} width={width} height={height} rx={14} fill={bg} />
-				<Group top={margin.top} left={xMax + margin.left + separation}>
+				<rect
+					x={margin.left}
+					y={0}
+					width={width}
+					height={height + margin.top + margin.bottom}
+					rx={14}
+					fill={bg}
+				/>
+				<Group top={0} left={xMax + margin.left / 2}>
 					<HeatmapRect
 						data={data}
 						xScale={xScale}
@@ -119,6 +127,7 @@ const HeatmapChart = ({ data }) => {
 						scale={yScale}
 						textAnchor={'middle'}
 						hideAxisLine={true}
+						numTicks={bucketSizeMax}
 						top={margin.top + bucketSizeMax}
 						left={0 - 20 - margin.left - margin.right - separation}
 						label={'Episodes'}
@@ -127,7 +136,9 @@ const HeatmapChart = ({ data }) => {
 					/>
 
 					<AxisBottom
-						top={height}
+						// top={height}
+						top={yMax + margin.top + margin.bottom + 20}
+						// top={yMax + 200}
 						textAnchor={'middle'}
 						hideAxisLine={true}
 						numTicks={data.length}

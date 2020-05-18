@@ -4,7 +4,7 @@ import HeatmapChart from './HeatmapChart';
 
 const IMDBapi = () => {
 	const [data, setData] = useState(null);
-	var seriesName = 'Silicon Valley';
+	var seriesName = 'Mad Men';
 	useEffect(() => {
 		// const cli = new Client({ apiKey: '81e1b710' });
 		const cli = new Client({ apiKey: 'd19ea01b' });
@@ -33,19 +33,19 @@ const IMDBapi = () => {
 			// newData.push({ season: season, episodes: data.filter((e) => e.season === season) })
 			newData.push({
 				bin: season,
-				// bins: d.filter((e) => e.season === season).map((el) => el),
-				// bins: d.map((e) => {
-				// 	if (e.season === season) {
-				// 		return { bin: e.episode, count: e.rating };
-				// 	}
-				// }),
 				/*****************************************************
 				 * The code lines from 45 to 50 have been with the help of this great person from Reddit u/GreenSnow02.
 				 * https://www.reddit.com/r/reactjs/comments/gjzmlp/data_formatting_question/
 				 ******************************************************/
 				bins: d.reduce((accum, e) => {
 					if (e.season === season) {
-						accum.push({ bin: e.episode * 150, count: e.rating });
+						accum.push({
+							bin: e.episode * 150,
+							count: e.rating,
+							//todo
+							// name:,
+							// dateOfRelease:,
+						});
 					}
 					return accum;
 				}, []), // [] set accum as an empty array to begin with
@@ -65,8 +65,10 @@ const IMDBapi = () => {
 	// return <p>loadfing</p>;
 	return (
 		<React.Fragment>
-			<h2 style={{ 'text-align': 'center' }}>{seriesName}</h2>
-			<HeatmapChart data={newDataFormatter(data)} />;
+			{/* <div style={{ height: 'initial', 'text-align': 'center' }}> */}
+			<h2>{seriesName}</h2>
+			<HeatmapChart data={newDataFormatter(data)} />
+			{/* </div> */}
 		</React.Fragment>
 	);
 };
