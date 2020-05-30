@@ -5,6 +5,6 @@ svg {
 	display: block;
 	align-items: center;
 	justify-content: center;
-	transform: rotateX(55deg) rotateY(0deg) rotateZ(55deg);
-	margin-left: 20em;
+	/* transform: rotateX(55deg) rotateY(0deg) rotateZ(55deg); */
+	/* margin-left: 20em; */
 }
