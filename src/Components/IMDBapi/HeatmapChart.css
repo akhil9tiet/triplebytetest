@@ -8,3 +8,11 @@ svg {
 	/* transform: rotateX(55deg) rotateY(0deg) rotateZ(55deg); */
 	/* margin-left: 20em; */
 }
+
+/* .vx-heatmap-rect {
+	border-radius: 15px;
+} */
+
+.vx-tooltip-portal {
+	background-color: rgb(170, 170, 170);
+}

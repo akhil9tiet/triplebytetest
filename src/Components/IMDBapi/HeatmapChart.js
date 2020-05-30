@@ -2,18 +2,22 @@
  * Most of the code in here is with the help of self starter from vx charts
  * https://vx-demo.now.sh/static/docs/vx-heatmap.html
  ******************************************************/
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import './HeatmapChart.css';
-import { Grid } from '@material-ui/core';
+// import { Grid } from '@material-ui/core';
 import { Group } from '@vx/group';
-import { withTooltip, Tooltip } from '@vx/tooltip';
+import { localPoint } from '@vx/event';
+import { useTooltip, TooltipWithBounds } from '@vx/tooltip';
 import { scaleLinear } from '@vx/scale';
 import { HeatmapRect } from '@vx/heatmap';
 import { AxisLeft, AxisBottom } from '@vx/axis';
-import { schemePaired } from 'd3';
+// import { schemePaired, scaleOrdinal } from 'd3';
 
 const HeatmapChart = ({ data }) => {
 	const activeTile = useRef(null);
+	const { tooltipData, tooltipLeft, tooltipTop, tooltipOpen, showTooltip, hideTooltip } = useTooltip();
+
+	// var tooltipData, tooltipLeft, tooltipTop, tooltipOpen, hideTooltip;
 	const low1 = '#a2202d';
 	const high1 = '#1f2091';
 
@@ -29,13 +33,14 @@ const HeatmapChart = ({ data }) => {
 
 	const colorMax = max(data, (d) => max(bins(d), count));
 	const colorMin = min(data, (d) => min(bins(d), count));
-	console.log('@@colormax', colorMax);
-	console.log('@@colormin', colorMin);
+	// console.log('@@colormax', colorMax);
+	// console.log('@@colormin', colorMin);
 
 	const bucketSizeMax = max(data, (d) => bins(d).length);
-	console.log('@@max episodes', bucketSizeMax);
+	// console.log('@@max episodes', bucketSizeMax);
 	const seasons = data.length;
-	console.log('@@seasons', seasons);
+	// console.log('@@seasons', seasons);
+	let tooltipTimeout;
 	// scales
 	const xScale = scaleLinear({
 		domain: [1, data.length],
@@ -70,6 +75,23 @@ const HeatmapChart = ({ data }) => {
 	xScale.range([1, xMax]);
 	yScale.range([yMax, 1]);
 
+	// const handleMouseOverTile = ({ event, bin }) => {
+	// 	const coords = localPoint(event.target.ownerSVGElement, event);
+	// 	console.log(
+	// 		'$$$$',
+	// 		showTooltip({
+	// 			tooltipLeft: coords.x,
+	// 			tooltipTop: coords.y,
+	// 			tooltipData: bin.title,
+	// 		})
+	// 	);
+	// 	withTooltip.showTooltip({
+	// 		tooltipLeft: coords.x,
+	// 		tooltipTop: coords.y,
+	// 		tooltipData: bin.title,
+	// 	});
+	// };
+
 	return (
 		<React.Fragment>
 			<svg width={width} height={height}>
@@ -87,6 +109,7 @@ const HeatmapChart = ({ data }) => {
 						data={data}
 						xScale={xScale}
 						yScale={yScale}
+						radius={50}
 						colorScale={rectColorScale}
 						binWidth={binWidth}
 						binHeight={binWidth}
@@ -105,14 +128,49 @@ const HeatmapChart = ({ data }) => {
 												x={bin.x}
 												y={bin.y}
 												fill={bin.color}
+												// onClick={(event) => {
+												// 	const { row, column } = bin;
+												// 	activeTile.current.setAttribute('active', true);
+												// 	console.log('ref', activeTile.current);
+												// 	handleMouseOverTile(event, bin);
+												// 	// alert(JSON.stringify({ row, column, ...bin.bin }));
+												// }}
+												//
+												// onMouseMove={(event) => handleMouseOverTile(event, bin)}
+												// onMouseOut={() => hideTooltip}
+
+												onMouseLeave={(event) => {
+													tooltipTimeout = setTimeout(() => {
+														hideTooltip();
+													}, 300);
+												}}
 												onClick={(event) => {
-													const { row, column } = bin;
-													activeTile.current.setAttribute('active', true);
-													console.log('ref', activeTile.current);
-													// alert(JSON.stringify({ row, column, ...bin.bin }));
-												}}></rect>
+													console.log(bin.bin.title);
+													if (tooltipTimeout) {
+														clearTimeout(tooltipTimeout);
+													}
+													// const top = bin.y + 10;
+													// const offset = binWidth / 2;
+													// const left = bin.x + offset;
+													const coords = localPoint(event.target.ownerSVGElement, event);
+													showTooltip({
+														tooltipLeft: coords.x + 500,
+														tooltipTop: coords.y + 500,
+														tooltipData: bin.bin.title,
+														// tooltipLeft: left,
+														// tooltipTop: top,
+													});
+												}}>
+												{' '}
+												<animate
+													attributeName='height'
+													from={0}
+													to={binWidth}
+													dur='0.5s'
+													fill='freeze'
+												/>
+											</rect>
 											<text
-												// key={`heatmap-rect-${bin.row}-${bin.column}`}
 												dy={'.33em'}
 												x={bin.x + bin.width / 2}
 												y={bin.y + bin.height / 2}
@@ -158,6 +216,17 @@ const HeatmapChart = ({ data }) => {
 					/>
 				</Group>
 			</svg>
+			{tooltipOpen && (
+				<TooltipWithBounds
+					// set this to random so it correctly updates with parent bounds
+					key={Math.random()}
+					top={tooltipTop}
+					left={tooltipLeft}>
+					Data value <strong>{tooltipData}</strong>
+					<br />
+					<img height={100} width={100} src='https://i.redd.it/5wctk6ivvk021.jpg' />
+				</TooltipWithBounds>
+			)}
 		</React.Fragment>
 	);
 };

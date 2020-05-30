@@ -19,8 +19,8 @@ const IMDBapi = () => {
 			});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	console.log('@@IMDB API DATA', JSON.stringify(data));
+	console.log('@@IMDB API DATA', data);
+	// console.log('@@IMDB API DATA', JSON.stringify(data));
 
 	const newDataFormatter = (d) => {
 		var newData = [];
@@ -43,8 +43,9 @@ const IMDBapi = () => {
 							bin: e.episode * 150,
 							count: e.rating,
 							//todo
-							// name:,
-							// dateOfRelease:,
+              title:e.title,
+              imdburl:e.imdburl,
+							release:e.released,
 						});
 					}
 					return accum;
