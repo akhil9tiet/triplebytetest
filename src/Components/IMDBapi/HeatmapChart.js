@@ -121,6 +121,7 @@ const HeatmapChart = ({ data }) => {
 										<Group key={`heatmap-rect-${bin.row}-${bin.column}`}>
 											<rect
 												ref={activeTile}
+												rx={8}
 												key={`heatmap-rect-${bin.row}-${bin.column}`}
 												className='vx-heatmap-rect'
 												width={bin.width}
