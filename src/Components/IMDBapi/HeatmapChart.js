@@ -2,22 +2,19 @@
  * Most of the code in here is with the help of self starter from vx charts
  * https://vx-demo.now.sh/static/docs/vx-heatmap.html
  ******************************************************/
-import React, { useRef } from 'react';
+import React from 'react';
 import './HeatmapChart.css';
-// import { Grid } from '@material-ui/core';
 import { Group } from '@vx/group';
 import { localPoint } from '@vx/event';
 import { useTooltip, TooltipWithBounds } from '@vx/tooltip';
 import { scaleLinear } from '@vx/scale';
 import { HeatmapRect } from '@vx/heatmap';
 import { AxisLeft, AxisBottom } from '@vx/axis';
-// import { schemePaired, scaleOrdinal } from 'd3';
 
 const HeatmapChart = ({ data }) => {
-	const activeTile = useRef(null);
+	// const activeTile = useRef(null);
 	const { tooltipData, tooltipLeft, tooltipTop, tooltipOpen, showTooltip, hideTooltip } = useTooltip();
 
-	// var tooltipData, tooltipLeft, tooltipTop, tooltipOpen, hideTooltip;
 	const low1 = '#a2202d';
 	const high1 = '#1f2091';
 
@@ -75,23 +72,6 @@ const HeatmapChart = ({ data }) => {
 	xScale.range([1, xMax]);
 	yScale.range([yMax, 1]);
 
-	// const handleMouseOverTile = ({ event, bin }) => {
-	// 	const coords = localPoint(event.target.ownerSVGElement, event);
-	// 	console.log(
-	// 		'$$$$',
-	// 		showTooltip({
-	// 			tooltipLeft: coords.x,
-	// 			tooltipTop: coords.y,
-	// 			tooltipData: bin.title,
-	// 		})
-	// 	);
-	// 	withTooltip.showTooltip({
-	// 		tooltipLeft: coords.x,
-	// 		tooltipTop: coords.y,
-	// 		tooltipData: bin.title,
-	// 	});
-	// };
-
 	return (
 		<React.Fragment>
 			<svg width={width} height={height}>
@@ -120,7 +100,7 @@ const HeatmapChart = ({ data }) => {
 									return (
 										<Group key={`heatmap-rect-${bin.row}-${bin.column}`}>
 											<rect
-												ref={activeTile}
+												// ref={activeTile}
 												rx={8}
 												key={`heatmap-rect-${bin.row}-${bin.column}`}
 												className='vx-heatmap-rect'
@@ -129,40 +109,39 @@ const HeatmapChart = ({ data }) => {
 												x={bin.x}
 												y={bin.y}
 												fill={bin.color}
-												// onClick={(event) => {
-												// 	const { row, column } = bin;
-												// 	activeTile.current.setAttribute('active', true);
-												// 	console.log('ref', activeTile.current);
-												// 	handleMouseOverTile(event, bin);
-												// 	// alert(JSON.stringify({ row, column, ...bin.bin }));
-												// }}
-												//
-												// onMouseMove={(event) => handleMouseOverTile(event, bin)}
-												// onMouseOut={() => hideTooltip}
-
+												onMouseOver={(event) => {
+													// console.log(bin.bin.title);
+													if (tooltipTimeout) {
+														clearTimeout(tooltipTimeout);
+													}
+													const coords = localPoint(event.target.ownerSVGElement, event);
+													// console.log(coords);
+													console.log(
+														'tooltipData:',
+														tooltipData,
+														'\ntooltipLeft:',
+														tooltipLeft,
+														'\ntooltipTop:',
+														tooltipTop,
+														'\ntooltipOpen:',
+														tooltipOpen,
+														'\nshowTooltip:',
+														showTooltip,
+														'\nhideTooltip:',
+														hideTooltip
+													);
+											
+													return showTooltip({
+														tooltipLeft: coords.x + 100,
+														tooltipTop: coords.y + 100,
+														tooltipData: bin.bin.title,
+													});
+												}}
 												onMouseLeave={(event) => {
 													tooltipTimeout = setTimeout(() => {
 														hideTooltip();
 													}, 300);
-												}}
-												onClick={(event) => {
-													console.log(bin.bin.title);
-													if (tooltipTimeout) {
-														clearTimeout(tooltipTimeout);
-													}
-													// const top = bin.y + 10;
-													// const offset = binWidth / 2;
-													// const left = bin.x + offset;
-													const coords = localPoint(event.target.ownerSVGElement, event);
-													showTooltip({
-														tooltipLeft: coords.x + 500,
-														tooltipTop: coords.y + 500,
-														tooltipData: bin.bin.title,
-														// tooltipLeft: left,
-														// tooltipTop: top,
-													});
 												}}>
-												{' '}
 												<animate
 													attributeName='height'
 													from={0}
@@ -217,19 +196,21 @@ const HeatmapChart = ({ data }) => {
 					/>
 				</Group>
 			</svg>
-			{tooltipOpen && (
+			{tooltipOpen && tooltipData && (
 				<TooltipWithBounds
-					// set this to random so it correctly updates with parent bounds
 					key={Math.random()}
-					top={tooltipTop}
-					left={tooltipLeft}>
+					className='tool-tip'
+					top={200}
+					left={2}
+					style={{
+						backgroundColor: '#4542f4',
+						color: '#444',
+					}}>
 					Data value <strong>{tooltipData}</strong>
-					<br />
-					<img height={100} width={100} src='https://i.redd.it/5wctk6ivvk021.jpg' />
 				</TooltipWithBounds>
 			)}
 		</React.Fragment>
 	);
 };
-
+// render(<HeatmapChart />, document.getElementById('root'));
 export default HeatmapChart;

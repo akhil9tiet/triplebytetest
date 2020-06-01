@@ -5,14 +5,15 @@ svg {
 	display: block;
 	align-items: center;
 	justify-content: center;
-	/* transform: rotateX(55deg) rotateY(0deg) rotateZ(55deg); */
-	/* margin-left: 20em; */
+	/* transform: rotateX(55deg) rotateY(0deg) rotateZ(55deg);
+	margin-left: 20em; */
 }
 
-/* .vx-heatmap-rect {
-	border-radius: 15px;
-} */
-
-.vx-tooltip-portal {
+/* .vx-tooltip-portal {
 	background-color: rgb(170, 170, 170);
-}
+}*/
+
+.tool-tip {
+	position: relative;
+	background-color: cyan;
+} 
