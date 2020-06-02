@@ -1,9 +1,13 @@
 /*****************************************************
- * Most of the code in here is with the help of self starter from vx charts
+Code: akhil9tiet 
+https://github.com/hshoff/vx/issues/735
+
+Heatmap tooltip issue (https://github.com/hshoff/vx/issues/735#event-3397662822) solved by @iguacel (Jose A. Álvarez). Also, thanks for chaning styling on the code.
+
+* Most of the code in here is with the help of self starter from vx charts
  * https://vx-demo.now.sh/static/docs/vx-heatmap.html
  ******************************************************/
 import React from 'react';
-import './HeatmapChart.css';
 import { Group } from '@vx/group';
 import { localPoint } from '@vx/event';
 import { useTooltip, TooltipWithBounds } from '@vx/tooltip';
@@ -13,10 +17,12 @@ import { AxisLeft, AxisBottom } from '@vx/axis';
 
 const HeatmapChart = ({ data }) => {
 	// const activeTile = useRef(null);
+
 	const { tooltipData, tooltipLeft, tooltipTop, tooltipOpen, showTooltip, hideTooltip } = useTooltip();
 
-	const low1 = '#a2202d';
-	const high1 = '#1f2091';
+	// https://colorbrewer2.org/#type=sequential&scheme=OrRd&n=9
+	const low1 = '#fee8c8';
+	const high1 = '#b30000';
 
 	// const bg = "#e0e5ed";
 	const bg = '#fff';
@@ -74,141 +80,151 @@ const HeatmapChart = ({ data }) => {
 
 	return (
 		<React.Fragment>
-			<svg width={width} height={height}>
-				<rect
-					key={`heatmap-rect-${binWidth}-${binHeight}`}
-					x={margin.left}
-					y={0}
-					width={width}
-					height={height + margin.top + margin.bottom}
-					rx={14}
-					fill={bg}
-				/>
-				<Group top={0} left={xMax + margin.left / 2}>
-					<HeatmapRect
-						data={data}
-						xScale={xScale}
-						yScale={yScale}
-						radius={50}
-						colorScale={rectColorScale}
-						binWidth={binWidth}
-						binHeight={binWidth}
-						gap={2}>
-						{(heatmap) => {
-							return heatmap.map((bins) => {
-								return bins.map((bin) => {
-									return (
-										<Group key={`heatmap-rect-${bin.row}-${bin.column}`}>
-											<rect
-												// ref={activeTile}
-												rx={8}
-												key={`heatmap-rect-${bin.row}-${bin.column}`}
-												className='vx-heatmap-rect'
-												width={bin.width}
-												height={bin.height}
-												x={bin.x}
-												y={bin.y}
-												fill={bin.color}
-												onMouseOver={(event) => {
-													// console.log(bin.bin.title);
-													if (tooltipTimeout) {
-														clearTimeout(tooltipTimeout);
-													}
-													const coords = localPoint(event.target.ownerSVGElement, event);
-													// console.log(coords);
-													console.log(
-														'tooltipData:',
-														tooltipData,
-														'\ntooltipLeft:',
-														tooltipLeft,
-														'\ntooltipTop:',
-														tooltipTop,
-														'\ntooltipOpen:',
-														tooltipOpen,
-														'\nshowTooltip:',
-														showTooltip,
-														'\nhideTooltip:',
-														hideTooltip
-													);
-											
-													return showTooltip({
-														tooltipLeft: coords.x + 100,
-														tooltipTop: coords.y + 100,
-														tooltipData: bin.bin.title,
-													});
-												}}
-												onMouseLeave={(event) => {
-													tooltipTimeout = setTimeout(() => {
-														hideTooltip();
-													}, 300);
-												}}>
-												<animate
-													attributeName='height'
-													from={0}
-													to={binWidth}
-													dur='0.5s'
-													fill='freeze'
-												/>
-											</rect>
-											<text
-												dy={'.33em'}
-												x={bin.x + bin.width / 2}
-												y={bin.y + bin.height / 2}
-												fontSize={14}
-												fontFamily='Arial'
-												textAnchor={'middle'}
-												fill={'#fff'}
-												style={{ pointerEvents: 'none' }}>
-												{bin.count}
-											</text>
-										</Group>
-									);
-								});
-							});
-						}}
-					</HeatmapRect>
-					<AxisLeft
-						scale={yScale}
-						textAnchor={'middle'}
-						hideAxisLine={true}
-						numTicks={bucketSizeMax}
-						top={margin.top + bucketSizeMax}
-						left={0 - 20 - margin.left - margin.right - separation}
-						label={'Episodes'}
-						stroke={'#1b1a1e'}
-						tickTextFill={'#1b1a1e'}
-						fontSize={24}
-					/>
-
-					<AxisBottom
-						// top={height}
-						top={yMax + margin.top + margin.bottom - separation * bucketSizeMax + 20}
-						// top={yMax + 200}
-						textAnchor={'middle'}
-						hideAxisLine={true}
-						numTicks={data.length}
-						scale={xScale}
-						left={0 - (margin.left + margin.right) / 2 - separation}
-						label={'Seasons'}
-						stroke={'#1b1a1e'}
-						tickTextFill={'#1b1a1e'}
-						fontSize={24}
-					/>
-				</Group>
-			</svg>
-			{tooltipOpen && tooltipData && (
-				<TooltipWithBounds
-					key={Math.random()}
-					className='tool-tip'
-					top={200}
-					left={2}
+			<div
+				style={{
+					position: 'relative',
+					height: '100%',
+					width: '100%',
+					border: '1px solid gold',
+				}}>
+				<svg
 					style={{
-						backgroundColor: '#4542f4',
-						color: '#444',
-					}}>
-					Data value <strong>{tooltipData}</strong>
-				</TooltipWithBounds>
-			)}
+						border: '1px solid white',
+						background: '#fff',
+						overflow: 'visible',
+						marginBottom: '2rem',
+						display: 'block',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
+					width={width}
+					height={height}>
+					<rect
+						key={`heatmap-rect-${binWidth}-${binHeight}`}
+						x={margin.left}
+						y={0}
+						width={width}
+						height={height + margin.top + margin.bottom}
+						rx={14}
+						fill={bg}
+					/>
+					<Group top={0} left={xMax + margin.left / 2}>
+						<HeatmapRect
+							data={data}
+							xScale={xScale}
+							yScale={yScale}
+							radius={50}
+							colorScale={rectColorScale}
+							binWidth={binWidth}
+							binHeight={binWidth}
+							gap={2}>
+							{(heatmap) => {
+								return heatmap.map((bins) => {
+									return bins.map((bin, i) => {
+										return (
+											<Group key={`heatmap-rect-${bin.row}-${bin.column}`}>
+												<rect
+													style={{
+														cursor: 'pointer',
+													}}
+													rx={8}
+													key={`heatmap-rect-${bin.row}-${bin.column}`}
+													className='vx-heatmap-rect'
+													width={bin.width}
+													height={bin.height}
+													x={bin.x}
+													y={bin.y}
+													fill={bin.color}
+													onMouseOver={(event) => {
+														if (tooltipTimeout) {
+															clearTimeout(tooltipTimeout);
+														}
+														const coords = localPoint(event.target.ownerSVGElement, event);
+														return showTooltip({
+															tooltipLeft: coords.x,
+															tooltipTop: coords.y,
+															tooltipData: bin,
+														});
+													}}
+													onMouseLeave={(event) => {
+														tooltipTimeout = setTimeout(() => {
+															hideTooltip();
+														}, 300);
+													}}>
+													<animate
+														attributeName='height'
+														from={0}
+														to={binWidth}
+														dur='0.5s'
+														fill='freeze'
+													/>
+												</rect>
+												<text
+													dy={'.33em'}
+													x={bin.x + bin.width / 2}
+													y={bin.y + bin.height / 2}
+													fontSize={14}
+													fontFamily='Arial'
+													textAnchor={'middle'}
+													fill={'#fff'}
+													style={{ pointerEvents: 'none' }}>
+													{bin.count}
+												</text>
+											</Group>
+										);
+									});
+								});
+							}}
+						</HeatmapRect>
+						<AxisLeft
+							scale={yScale}
+							textAnchor={'middle'}
+							hideAxisLine={true}
+							numTicks={bucketSizeMax}
+							top={margin.top + bucketSizeMax}
+							left={0 - 20 - margin.left - margin.right - separation}
+							label={'Episodes'}
+							stroke={'#1b1a1e'}
+							tickTextFill={'#1b1a1e'}
+							fontSize={24}
+						/>
+
+						<AxisBottom
+							// top={height}
+							top={yMax + margin.top + margin.bottom - separation * bucketSizeMax + 20}
+							// top={yMax + 200}
+							textAnchor={'middle'}
+							hideAxisLine={true}
+							numTicks={data.length}
+							scale={xScale}
+							left={0 - (margin.left + margin.right) / 2 - separation}
+							label={'Seasons'}
+							stroke={'#1b1a1e'}
+							tickTextFill={'#1b1a1e'}
+							fontSize={24}
+						/>
+					</Group>
+				</svg>
+				{tooltipOpen && tooltipData && (
+					<TooltipWithBounds
+						key={Math.random()}
+						className='tool-tip'
+						top={tooltipTop}
+						left={tooltipLeft}
+						style={{
+							position: 'absolute',
+							backgroundColor: '#4542f4',
+							fontFamily: 'Arial, sans-serif',
+							width: '100px',
+							padding: '0 1em 1em 1em',
+							borderRadius: '5%',
+						}}>
+						<p>{tooltipData?.bin?.title}</p>
+						<br />
+						<strong>{tooltipData?.count}</strong>
+					</TooltipWithBounds>
+				)}
+			</div>
 		</React.Fragment>
 	);
 };
