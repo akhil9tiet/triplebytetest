@@ -15,6 +15,8 @@ import { scaleLinear } from '@vx/scale';
 import { HeatmapRect } from '@vx/heatmap';
 import { AxisLeft, AxisBottom } from '@vx/axis';
 
+import './HeatmapChart.css';
+
 const HeatmapChart = ({ data }) => {
 	// const activeTile = useRef(null);
 
@@ -156,7 +158,7 @@ const HeatmapChart = ({ data }) => {
 														from={0}
 														to={binWidth}
 														dur='0.5s'
-														fill='freeze'
+														fill='cubic-bezier(0.165, 0.84, 0.44, 1)'
 													/>
 												</rect>
 												<text
@@ -213,13 +215,21 @@ const HeatmapChart = ({ data }) => {
 						left={tooltipLeft}
 						style={{
 							position: 'absolute',
-							backgroundColor: '#4542f4',
+							backgroundColor: '#e0e5ed',
+							borderRadius: '3px',
+							boxShadow: '0px 0px 5px #fff',
+							margin: '25px',
+							minHeight: '50px',
+							border: '1px solid #fff',
 							fontFamily: 'Arial, sans-serif',
-							width: '100px',
+							// width: '100px',
 							padding: '0 1em 1em 1em',
-							borderRadius: '5%',
+							// borderRadius: '5%',
 						}}>
-						<p>{tooltipData?.bin?.title}</p>
+						<h1>{tooltipData?.bin?.title}</h1>
+						{/* <h2>{tooltipData?.bin?.imdburl}</h2> */}
+						{/* <p>{tooltipData?.bin?.release}</p> */}
+
 						<br />
 						<strong>{tooltipData?.count}</strong>
 					</TooltipWithBounds>
