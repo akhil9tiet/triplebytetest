@@ -4,7 +4,7 @@ import HeatmapChart from './HeatmapChart';
 
 const IMDBapi = () => {
 	const [data, setData] = useState(null);
-	var seriesName = 'The Office';
+	var seriesName = 'South Park';
 	useEffect(() => {
 		// const cli = new Client({ apiKey: '81e1b710' });
 		const cli = new Client({ apiKey: 'd19ea01b' });
@@ -43,9 +43,10 @@ const IMDBapi = () => {
 							bin: e.episode * 150,
 							count: e.rating,
 							//todo
-              title:e.title,
-              imdburl:e.imdburl,
-							release:e.released,
+							title: e.title,
+							imdbid: e.imdbid,
+							imdburl: e.imdburl,
+							release: e.released,
 						});
 					}
 					return accum;

@@ -14,6 +14,7 @@ import { useTooltip, TooltipWithBounds } from '@vx/tooltip';
 import { scaleLinear } from '@vx/scale';
 import { HeatmapRect } from '@vx/heatmap';
 import { AxisLeft, AxisBottom } from '@vx/axis';
+import TooltipCard from './TooltipCard';
 
 import './HeatmapChart.css';
 
@@ -87,11 +88,11 @@ const HeatmapChart = ({ data }) => {
 					position: 'relative',
 					height: '100%',
 					width: '100%',
-					border: '1px solid gold',
+					overflowX: 'fixed',
 				}}>
 				<svg
+					className='heatmap'
 					style={{
-						border: '1px solid white',
 						background: '#fff',
 						overflow: 'visible',
 						marginBottom: '2rem',
@@ -211,27 +212,26 @@ const HeatmapChart = ({ data }) => {
 					<TooltipWithBounds
 						key={Math.random()}
 						className='tool-tip'
-						top={tooltipTop}
-						left={tooltipLeft}
+						top={tooltipTop - 450}
+						left={tooltipLeft - 450}
 						style={{
 							position: 'absolute',
 							backgroundColor: '#e0e5ed',
 							borderRadius: '3px',
 							boxShadow: '0px 0px 5px #fff',
-							margin: '25px',
+							margin: '15px',
 							minHeight: '50px',
 							border: '1px solid #fff',
 							fontFamily: 'Arial, sans-serif',
-							// width: '100px',
 							padding: '0 1em 1em 1em',
-							// borderRadius: '5%',
 						}}>
-						<h1>{tooltipData?.bin?.title}</h1>
+						{/* <TooltipCard data={tooltipData?.bin?.title} /> */}
+						<p>{tooltipData?.bin?.imdbid}</p>
 						{/* <h2>{tooltipData?.bin?.imdburl}</h2> */}
 						{/* <p>{tooltipData?.bin?.release}</p> */}
 
-						<br />
-						<strong>{tooltipData?.count}</strong>
+						{/* <br /> */}
+						{/* <strong>{tooltipData?.count}</strong> */}
 					</TooltipWithBounds>
 				)}
 			</div>
