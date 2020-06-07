@@ -5,17 +5,15 @@
 	display: block;
 	align-items: center;
 	justify-content: center;
-	transform: rotateX(45deg) rotateY(0deg) rotateZ(55deg) !important;
+	/* transform: rotateX(45deg) rotateY(0deg) rotateZ(55deg) !important;
 	transform-style: preserve-3d;
-	margin: -10em 0em 0em -40em;
+	margin: -10em 0em 0em -40em; */
 }
 
 .vx-heatmap-rect {
 	box-shadow: 5px 5px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
-
 .tool-tip {
 	position: relative;
 }
-

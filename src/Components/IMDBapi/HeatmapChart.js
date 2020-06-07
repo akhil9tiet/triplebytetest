@@ -102,7 +102,7 @@ const HeatmapChart = ({ data }) => {
 					}}
 					width={width}
 					height={height}>
-					<rect
+					{/* <rect
 						key={`heatmap-rect-${binWidth}-${binHeight}`}
 						x={margin.left}
 						y={0}
@@ -110,8 +110,8 @@ const HeatmapChart = ({ data }) => {
 						height={height + margin.top + margin.bottom}
 						rx={14}
 						fill={bg}
-					/>
-					<Group top={0} left={xMax + margin.left / 2}>
+					/> */}
+					<Group top={0} left={150 + margin.left / 2}>
 						<HeatmapRect
 							data={data}
 							xScale={xScale}
@@ -212,21 +212,23 @@ const HeatmapChart = ({ data }) => {
 					<TooltipWithBounds
 						key={Math.random()}
 						className='tool-tip'
-						top={tooltipTop - 450}
-						left={tooltipLeft - 450}
+						// top={tooltipTop - 450}
+						// left={tooltipLeft - 450}
+						top={tooltipTop}
+						left={tooltipLeft}
 						style={{
 							position: 'absolute',
-							backgroundColor: '#e0e5ed',
+							backgroundColor: '#fff',
 							borderRadius: '3px',
-							boxShadow: '0px 0px 5px #fff',
+							boxShadow: '0px 0px 5px #e0e5ec',
 							margin: '15px',
 							minHeight: '50px',
 							border: '1px solid #fff',
 							fontFamily: 'Arial, sans-serif',
 							padding: '0 1em 1em 1em',
 						}}>
-						{/* <TooltipCard data={tooltipData?.bin?.title} /> */}
-						<p>{tooltipData?.bin?.imdbid}</p>
+						<TooltipCard data={tooltipData?.bin?.imdbid} />
+						{/* <p>{tooltipData?.bin?.imdbid}</p>  */}
 						{/* <h2>{tooltipData?.bin?.imdburl}</h2> */}
 						{/* <p>{tooltipData?.bin?.release}</p> */}
 
