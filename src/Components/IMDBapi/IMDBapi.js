@@ -4,7 +4,9 @@ import HeatmapChart from './HeatmapChart';
 
 const IMDBapi = () => {
 	const [data, setData] = useState(null);
-	var seriesName = 'South Park';
+	// var seriesName = 'South Park';
+	// var seriesName = 'Silicon Valley';
+	var seriesName = 'The Office';
 	useEffect(() => {
 		// const cli = new Client({ apiKey: '81e1b710' });
 		const cli = new Client({ apiKey: 'd19ea01b' });

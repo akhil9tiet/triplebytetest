@@ -227,8 +227,8 @@ const HeatmapChart = ({ data }) => {
 							fontFamily: 'Arial, sans-serif',
 							padding: '0 1em 1em 1em',
 						}}>
-						<TooltipCard data={tooltipData?.bin?.imdbid} />
-						{/* <p>{tooltipData?.bin?.imdbid}</p>  */}
+						<TooltipCard episodeid={tooltipData?.bin?.imdbid} />
+						{/* <p>{tooltipData?.bin?.imdbid}</p> */}
 						{/* <h2>{tooltipData?.bin?.imdburl}</h2> */}
 						{/* <p>{tooltipData?.bin?.release}</p> */}
 
