@@ -14,6 +14,7 @@ import { useTooltip, TooltipWithBounds } from '@vx/tooltip';
 import { scaleLinear } from '@vx/scale';
 import { HeatmapRect } from '@vx/heatmap';
 import { AxisLeft, AxisBottom } from '@vx/axis';
+import TooltipCard from './TooltipCard';
 
 import './HeatmapChart.css';
 
@@ -87,11 +88,11 @@ const HeatmapChart = ({ data }) => {
 					position: 'relative',
 					height: '100%',
 					width: '100%',
-					border: '1px solid gold',
+					overflowX: 'fixed',
 				}}>
 				<svg
+					className='heatmap'
 					style={{
-						border: '1px solid white',
 						background: '#fff',
 						overflow: 'visible',
 						marginBottom: '2rem',
@@ -101,7 +102,7 @@ const HeatmapChart = ({ data }) => {
 					}}
 					width={width}
 					height={height}>
-					<rect
+					{/* <rect
 						key={`heatmap-rect-${binWidth}-${binHeight}`}
 						x={margin.left}
 						y={0}
@@ -109,8 +110,8 @@ const HeatmapChart = ({ data }) => {
 						height={height + margin.top + margin.bottom}
 						rx={14}
 						fill={bg}
-					/>
-					<Group top={0} left={xMax + margin.left / 2}>
+					/> */}
+					<Group top={0} left={150 + margin.left / 2}>
 						<HeatmapRect
 							data={data}
 							xScale={xScale}
@@ -211,27 +212,28 @@ const HeatmapChart = ({ data }) => {
 					<TooltipWithBounds
 						key={Math.random()}
 						className='tool-tip'
+						// top={tooltipTop - 450}
+						// left={tooltipLeft - 450}
 						top={tooltipTop}
 						left={tooltipLeft}
 						style={{
 							position: 'absolute',
-							backgroundColor: '#e0e5ed',
+							backgroundColor: '#fff',
 							borderRadius: '3px',
-							boxShadow: '0px 0px 5px #fff',
-							margin: '25px',
+							boxShadow: '0px 0px 5px #e0e5ec',
+							margin: '15px',
 							minHeight: '50px',
 							border: '1px solid #fff',
 							fontFamily: 'Arial, sans-serif',
-							// width: '100px',
 							padding: '0 1em 1em 1em',
-							// borderRadius: '5%',
 						}}>
-						<h1>{tooltipData?.bin?.title}</h1>
+						<TooltipCard episodeid={tooltipData?.bin?.imdbid} />
+						{/* <p>{tooltipData?.bin?.imdbid}</p> */}
 						{/* <h2>{tooltipData?.bin?.imdburl}</h2> */}
 						{/* <p>{tooltipData?.bin?.release}</p> */}
 
-						<br />
-						<strong>{tooltipData?.count}</strong>
+						{/* <br /> */}
+						{/* <strong>{tooltipData?.count}</strong> */}
 					</TooltipWithBounds>
 				)}
 			</div>

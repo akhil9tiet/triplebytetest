@@ -1,0 +1,10 @@
+.details {
+	display: flex;
+	flex-direction: column;
+}
+.content {
+	flex: 1 0 auto;
+}
+.cover {
+	width: 200;
+}
