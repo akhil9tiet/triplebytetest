@@ -4,6 +4,9 @@ import { Client } from 'imdb-api';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Rating from '@material-ui/lab/Rating';
+import Box from '@material-ui/core/Box';
+
 import './TooltipCard.css';
 
 const TooltipCard = ({ episodeid }) => {
@@ -66,6 +69,10 @@ const TooltipCard = ({ episodeid }) => {
 					</Typography>
 					<div className={'controls'}>
 						<p>Rating: {data?.rating}</p>
+						<Box component='fieldset' mb={3} borderColor='transparent'>
+							<Rating value={5} max={10} defaultValue={2.5} precision={0.5} readOnly />
+							{/* <Rating name='read-only' value={data?.rating} readOnly /> */}
+						</Box>
 					</div>
 				</CardContent>
 			</div>
