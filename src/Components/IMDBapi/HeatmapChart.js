@@ -228,17 +228,10 @@ const HeatmapChart = ({ data }) => {
 							padding: '0 1em 1em 1em',
 						}}>
 						<TooltipCard episodeid={tooltipData?.bin?.imdbid} />
-						{/* <p>{tooltipData?.bin?.imdbid}</p> */}
-						{/* <h2>{tooltipData?.bin?.imdburl}</h2> */}
-						{/* <p>{tooltipData?.bin?.release}</p> */}
-
-						{/* <br /> */}
-						{/* <strong>{tooltipData?.count}</strong> */}
 					</TooltipWithBounds>
 				)}
 			</div>
 		</React.Fragment>
 	);
 };
-// render(<HeatmapChart />, document.getElementById('root'));
 export default HeatmapChart;

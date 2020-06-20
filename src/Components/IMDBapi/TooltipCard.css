@@ -1,10 +1,20 @@
-.details {
-	display: flex;
-	flex-direction: column;
+.card__root {
+	display: 'flex';
 }
-.content {
-	flex: 1 0 auto;
+.card__details {
+	display: 'flex';
+	flex-direction: 'column';
 }
-.cover {
-	width: 200;
+.card__content {
+	flex: '1 0 auto';
+	/* width: 50%; */
+}
+.card__cover {
+	width: 151;
+}
+.card__controls {
+	display: 'flex';
+	align-items: 'center';
+	padding-left: 10px;
+	padding-bottom: 10px;
 }

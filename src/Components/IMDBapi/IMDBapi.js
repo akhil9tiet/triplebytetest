@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import imdb, { Client } from 'imdb-api';
 import HeatmapChart from './HeatmapChart';
+// import TooltipCard from './TooltipCard';
 
 const IMDBapi = () => {
 	const [data, setData] = useState(null);
 	// var seriesName = 'South Park';
 	// var seriesName = 'Silicon Valley';
-	var seriesName = 'The Office';
+	var seriesName = 'Game of thrones';
 	useEffect(() => {
 		// const cli = new Client({ apiKey: '81e1b710' });
 		const cli = new Client({ apiKey: 'd19ea01b' });
@@ -16,13 +17,11 @@ const IMDBapi = () => {
 				return things.episodes();
 			})
 			.then((eps) => {
-				// setData(eps);
 				setData(eps.filter((el) => el.name !== undefined));
 			});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	console.log('@@IMDB API DATA', data);
-	// console.log('@@IMDB API DATA', JSON.stringify(data));
 
 	const newDataFormatter = (d) => {
 		var newData = [];
@@ -32,7 +31,6 @@ const IMDBapi = () => {
 
 		var seasonsArrUnique = [...new Set(seasonsArr)]; //remove duplicates
 		seasonsArrUnique.forEach((season) =>
-			// newData.push({ season: season, episodes: data.filter((e) => e.season === season) })
 			newData.push({
 				bin: season,
 				/*****************************************************
@@ -56,22 +54,18 @@ const IMDBapi = () => {
 				/***************************************************** */
 			})
 		);
-		// var filteredData = newData.map((el) => {...el, bins:[el.bins.filter((e) => e)]	x});
-		// return filteredData;
 		return newData;
 	};
-
-	// console.log('@@newData', newDataFormatter(data));
 
 	if (data === null) {
 		return <p>Loading ...</p>;
 	}
-	// return <p>loadfing</p>;
 	return (
 		<React.Fragment>
-			{/* <div style={{ height: 'initial', 'text-align': 'center' }}> */}
 			<h2>{seriesName}</h2>
+			{/* <TooltipCard episodeid={tooltipData?.bin?.imdbid} /> */}
 			<HeatmapChart data={newDataFormatter(data)} />
+
 			{/* </div> */}
 		</React.Fragment>
 	);
