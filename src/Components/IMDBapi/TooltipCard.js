@@ -27,12 +27,14 @@ const TooltipCard = ({ episodeid }) => {
 	}, [episodeid]);
 	console.log('@@Data', JSON.stringify(data));
 	return (
-		<Card className='card__root'>
-			<CardMedia className='card__cover' image={data?.poster} title='poster' />
+		<div className='card__root'>
+			<div className='card__cover'>
+				<img src={data?.poster} />
+			</div>
 			<div className='card__details'>
-				<CardContent className='card__content'>
+				<div className='card__content'>
 					<Typography variant='h4'>{data?.title}</Typography>
-					<Typography variant='subtitle1' color='textSecondary'>
+					<Typography variant='subtitle1' color='textSecondary' width={'30%'}>
 						{data?.plot}
 					</Typography>
 					<div className='card__controls'>
@@ -42,9 +44,9 @@ const TooltipCard = ({ episodeid }) => {
 							{/* <Rating name='read-only' value={data?.rating} readOnly /> */}
 						</Box>
 					</div>
-				</CardContent>
+				</div>
 			</div>
-		</Card>
+		</div>
 		// <Card borderColor='transparent' style={{ height: '100%', width: 500, border: 'none' }}>
 		// 	<CardMedia style={{ height: 250, width: '40%' }} image={data?.poster} title='poster' />
 		// 	<div className='details'>

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import imdb, { Client } from 'imdb-api';
 import HeatmapChart from './HeatmapChart';
-// import TooltipCard from './TooltipCard';
+import TooltipCard from './TooltipCard';
 
 const IMDBapi = () => {
 	const [data, setData] = useState(null);
 	// var seriesName = 'South Park';
 	// var seriesName = 'Silicon Valley';
-	var seriesName = 'Game of thrones';
+	var seriesName = 'Brooklyn Nine-Nine';
 	useEffect(() => {
 		// const cli = new Client({ apiKey: '81e1b710' });
 		const cli = new Client({ apiKey: 'd19ea01b' });
@@ -63,7 +63,7 @@ const IMDBapi = () => {
 	return (
 		<React.Fragment>
 			<h2>{seriesName}</h2>
-			{/* <TooltipCard episodeid={tooltipData?.bin?.imdbid} /> */}
+			<TooltipCard episodeid={'tt5775854'} />
 			<HeatmapChart data={newDataFormatter(data)} />
 
 			{/* </div> */}
