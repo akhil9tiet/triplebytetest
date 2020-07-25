@@ -82,13 +82,16 @@ function buttonName(stepIndex) {
 
 const StepperComponent = () => {
 	const [activeStep, setActiveStep] = useState(0);
+	const [pos, setPos] = useState({ enter: 0, exit: 0 });
 	const steps = getSteps();
 
 	const handleNext = () => {
+		setPos({ enter: 100, exit: -50 });
 		setActiveStep((prevActiveStep) => prevActiveStep + 1);
 	};
 
 	const handleBack = () => {
+		setPos({ enter: -100, exit: 50 });
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
 
@@ -122,9 +125,9 @@ const StepperComponent = () => {
 								reset
 								unique
 								items={activeStep}
-								from={{ opacity: 0, transform: 'translate3d(100%,0,0)' }}
+								from={{ opacity: 0, transform: `translate3d(${pos.enter}%,0,0)` }}
 								enter={{ opacity: 1, transform: 'translate3d(0%,0,0)' }}
-								leave={{ opacity: 0, transform: 'translate3d(-50%,0,0)' }}>
+								leave={{ opacity: 0, transform: `translate3d(${pos.exit}%,0,0)` }}>
 								{/* {getStepContent(activeStep)} */}
 								{(index) => pages[index]}
 							</Transition>
