@@ -1,13 +1,4 @@
-import { AirlineSeatIndividualSuiteSharp } from '@material-ui/icons';
-import React, { useState } from 'react';
-
-/*
-    order: 1,
-		field: 'first_name',
-		display_name: 'First name',
-		type: 'string',
-		required: true,
-*/
+import React from 'react';
 
 export const FormInput = ({ key, values, setValues, label, name, inputMode, required }) => {
 	const handleChange = (e) => {

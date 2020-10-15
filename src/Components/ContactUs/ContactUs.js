@@ -9,30 +9,19 @@ A form can contain several types of imput from a user:
 The form component should take a prop describing a form with the following javascript obeject structure
 
 */
-
-/*
-{
-		order: 1,
-		field: 'first_name',
-		display_name: 'First name',
-		type: 'string',
-		required: true,
-	},
-*/
 import React, { useState } from 'react';
 import './ContactUs.css';
 import { formSchema } from './formSchema';
 import { FormInput } from './FormInput';
 
 const ContactUs = () => {
-	// console.log(formSchema);
 	const [values, setValues] = useState({});
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		//POST request here
 
-		// alert(value);
+		alert(values);
 	};
 
 	return (
@@ -41,7 +30,7 @@ const ContactUs = () => {
 				<FormInput
 					key={entry.order}
 					values={values}
-					setValues = {setValues}
+					setValues={setValues}
 					label={entry.display_name}
 					name={entry.field}
 					inputMode={entry.type}
