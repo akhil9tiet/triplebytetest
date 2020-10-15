@@ -8,104 +8,48 @@ A form can contain several types of imput from a user:
 
 The form component should take a prop describing a form with the following javascript obeject structure
 
-[
-	{
+*/
+
+/*
+{
 		order: 1,
 		field: 'first_name',
 		display_name: 'First name',
 		type: 'string',
-		required: true
+		required: true,
 	},
-	{
-		order: 2,
-		field: 'last_name',
-		display_name: 'Last name',
-		type: 'string',
-		required: true
-	},
-	{
-		order: 3,
-		field: 'age',
-		display_name: 'Age',
-		type: 'number',
-		required: false
-	},
-	{
-		order: 3,
-		field: 'user_type',
-		display_name: 'User Type',
-		type: 'select',
-		required: false,
-		options:['shareholder','investor','other']
-	}
-]
-
-
 */
-
 import React, { useState } from 'react';
 import './ContactUs.css';
+import { formSchema } from './formSchema';
+import { FormInput } from './FormInput';
 
 const ContactUs = () => {
-	const [details, setDetails] = useState({
-		name: '',
-		email: '',
-		message: '',
-	});
+	// console.log(formSchema);
+	const [values, setValues] = useState({});
 
-	const inputChangeHandler = (event) => {
-		const { name, value } = event.target;
-		setDetails({ ...details, [name]: value });
-	};
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		//POST request here
 
-	const submitHandler = (event) => {
-		console.log('state', details);
-		event.preventDefault(); // event has a method which prevents page refreshings
+		// alert(value);
 	};
 
 	return (
-		<React.Fragment>
-			{/* {!details ? ( */}
-			<form onSubmit={submitHandler}>
-				<div className='form-group'>
-					<label>
-						Name:
-						<input
-							type='text'
-							name='name'
-							placeholder='Alex'
-							value={details.name}
-							onChange={inputChangeHandler}
-						/>
-					</label>
-					<label htmlFor='exampleInputEmail1'>
-						Email:{' '}
-						<input
-							type='email'
-							name='email'
-							placeholder='alex@xyz.com'
-							value={details.email}
-							aria-describedby='emailHelp'
-							onChange={inputChangeHandler}
-						/>
-					</label>
-					<label htmlFor='message'>
-						Message:
-						<textarea
-							type='text'
-							name='message'
-							placeholder='Your Message'
-							value={details.message}
-							rows='10'
-							onChange={inputChangeHandler}></textarea>{' '}
-					</label>
-				</div>
-				<button type='submit'>Send</button>
-			</form>
-			{/* ) : (
-				<p>Your message has been received</p>
-			)} */}
-		</React.Fragment>
+		<form onSubmit={handleSubmit}>
+			{formSchema.map((entry) => (
+				<FormInput
+					key={entry.order}
+					values={values}
+					setValues = {setValues}
+					label={entry.display_name}
+					name={entry.field}
+					inputMode={entry.type}
+					required={true}
+				/>
+			))}
+			<button type='submit'>Submit</button>
+		</form>
 	);
 };
 
