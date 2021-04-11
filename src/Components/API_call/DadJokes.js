@@ -35,13 +35,16 @@ const DadJokes = () => {
 	const [joke, setJoke] = useState('');
 	const classes = useStyles();
 
-	useEffect(() => {
-		axios
-			.get('https://icanhazdadjoke.com/', { headers: { Accept: 'application/json' } })
-			.then((res) => setJoke(res.data))
-			.catch((err) => console.log(err));
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	useEffect(async () => {
+		try{
+		const response = await axios.get('https://icanhazdadjoke.com/', { headers: { Accept: 'application/json' } })
+		setJoke(response.data)
+		}catch(error){
+			console.log(error)
+		}
 	}, []);
-
+	
 	const clickHandler = () => {
 		// console.log('Chala');
 		axios
