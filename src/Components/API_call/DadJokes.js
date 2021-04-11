@@ -9,22 +9,30 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
 	card: {
-		minWidth: 275
+		padding: '20px',
+		marginLeft: '30vw',
+		marginRight: '30vw',
+		marginTop: '40vh',
+		marginBottom: '40vh',
+		textAlign: 'center',
+		minWidth: '40vw',
+		minHeight: '20vh',
+		background: '#EBECED',
 	},
 	title: {
 		fontSize: 20,
 		padding: 10,
 		borderRadius: 5,
 		color: '#fff',
-		backgroundColor: '#333'
+		backgroundColor: '#1652F0',
 	},
 	pos: {
-		marginBottom: 12
-	}
+		marginBottom: 12,
+	},
 });
 
 const DadJokes = () => {
-	const [joke, setJoke] = useState('hahahaha');
+	const [joke, setJoke] = useState('');
 	const classes = useStyles();
 
 	useEffect(() => {
@@ -51,7 +59,7 @@ const DadJokes = () => {
 			</CardContent>
 			<CardActions>
 				<Button size='small' onClick={clickHandler}>
-					Learn More
+					Next
 				</Button>
 			</CardActions>
 		</Card>
