@@ -14,6 +14,7 @@ import DeltaIsometric from './Components/DeltaIsometric';
 import IMDBapi from './Components/IMDBapi';
 import StepperComponent from './Components/Stepper';
 import SearchTodo from './Components/SearchTodo/SearchTodo';
+import { Debouncer, Throttler } from './Components/CoreImplementations';
 import { Switch, Route } from 'react-router-dom';
 
 import './App.css';
@@ -48,6 +49,8 @@ function App() {
 				<Route exact path='/imdb-api' component={IMDBapi}></Route>
 				<Route exact path='/stepper' component={StepperComponent}></Route>
 				<Route exact path='/search-todo' component={SearchTodo}></Route>
+				<Route exact path='/debouncer' component={Debouncer}></Route>
+				<Route exact path='/throttler' component={Throttler}></Route>
 				{/* </div> */}
 			</Switch>
 		</React.Fragment>
