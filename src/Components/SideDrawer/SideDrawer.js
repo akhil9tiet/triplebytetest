@@ -45,6 +45,7 @@ export default function TemporaryDrawer() {
 			'imdb-api',
 			'stepper',
 			'search-todo',
+			'debouncer'
 		];
 		return (
 			<div
