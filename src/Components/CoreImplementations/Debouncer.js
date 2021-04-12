@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import debounce from 'lodash.debounce';
 
 export default function Debouncer() {
-	const [data, ShowData] = useState(null);
+	const [value, setValue] = useState('');
+	const [dbValue, setDbValue] = useState('');
+
+	/************************************************************** */
+	/*
+  Debounce function self implementation
+  */
 
 	// const debounce = (fn, delay) => {
 	// 	let timeOutID;
@@ -16,6 +22,25 @@ export default function Debouncer() {
 	// 		}, delay);
 	// 	};
 	// };
+	/************************************************************** */
+
+
+  
+	/*
+  useCallback helps us to create this function only once as component mounts
+  the callback function will be memoized and be called only once when the component mounts
+  */
+	const debouncedSave = useCallback(
+		debounce((nextValue) => setDbValue(nextValue), 2000),
+		[]
+	);
+
+	const handleChange = (event) => {
+		const nextValue = event.target.value;
+		setValue(nextValue);
+		debouncedSave(nextValue);
+	};
+
 	return (
 		<div
 			style={{
@@ -28,26 +53,23 @@ export default function Debouncer() {
 				width: '50vw',
 			}}>
 			<div>
-				<button
+				<input
 					style={{
-						padding: '20px 140px 20px 140px',
-						background: '#97ee98',
+						padding: '20px 10px 20px 10px',
+						background: '#ddddd',
 						fontSize: '24px',
 					}}
-          /*My Implementation*/
-					// onClick={debounce((e) => {
-					// 	ShowData('hello');
-					// }, 2000)}
-
-          /*Lodash Usage*/
-					onClick={debounce((e) => {
-						ShowData('hello');
-					}, 2000)}>
-					Press
-				</button>
+					value={value}
+					onChange={handleChange}
+				/>
 			</div>
 			<div>
-				<h1>{data}</h1>
+				<h1>Local Val</h1>
+				<p>{value}</p>
+			</div>
+			<div>
+				<h1>DB Val</h1>
+				<p>{dbValue}</p>
 			</div>
 		</div>
 	);
