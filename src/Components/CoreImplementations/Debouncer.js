@@ -1,15 +1,23 @@
 import React, { useState, useCallback } from 'react';
 import debounce from 'lodash.debounce';
 
+/*
+  useCallback helps us to create this function only once as component mounts
+  the callback function will be memoized and be called only once when the component mounts
+  */
+	function useDebounce(callback, delay) {
+		const debouncedFn = useCallback(
+			debounce((...args) => callback(...args), delay),
+			[delay]
+		);
+		return debouncedFn;
+	}
+
 export default function Debouncer() {
 	const [value, setValue] = useState('');
 	const [dbValue, setDbValue] = useState('');
 
-	/************************************************************** */
-	/*
-  Debounce function self implementation
-  */
-
+	/****************************__________________Debounce function self implementation___________________********************************** */
 	// const debounce = (fn, delay) => {
 	// 	let timeOutID;
 
@@ -22,24 +30,16 @@ export default function Debouncer() {
 	// 		}, delay);
 	// 	};
 	// };
-	/************************************************************** */
-
-
-  
-	/*
-  useCallback helps us to create this function only once as component mounts
-  the callback function will be memoized and be called only once when the component mounts
-  */
-	const debouncedSave = useCallback(
-		debounce((nextValue) => setDbValue(nextValue), 2000),
-		[]
-	);
+	/****************************_______*__________Debounce function self implementation*________*_________********************************* */
 
 	const handleChange = (event) => {
 		const nextValue = event.target.value;
 		setValue(nextValue);
 		debouncedSave(nextValue);
 	};
+	
+	
+	const debouncedSave = useDebounce((nextVal) => setDbValue(nextVal), 1000);
 
 	return (
 		<div
