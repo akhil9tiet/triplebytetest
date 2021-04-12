@@ -44,6 +44,7 @@ export default function TemporaryDrawer() {
 			'delta-isometric',
 			'imdb-api',
 			'stepper',
+			'search-todo',
 		];
 		return (
 			<div
