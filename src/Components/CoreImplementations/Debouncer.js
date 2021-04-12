@@ -35,9 +35,9 @@ export default function Debouncer() {
 						fontSize: '24px',
 					}}
           /*My Implementation*/
-					onClick={debounce((e) => {
-						ShowData('hello');
-					}, 2000)}
+					// onClick={debounce((e) => {
+					// 	ShowData('hello');
+					// }, 2000)}
 
           /*Lodash Usage*/
 					onClick={debounce((e) => {
