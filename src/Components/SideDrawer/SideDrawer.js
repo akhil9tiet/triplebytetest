@@ -46,7 +46,8 @@ export default function TemporaryDrawer() {
 			'stepper',
 			'search-todo',
 			'debouncer',
-			'throttler'
+			'throttler',
+			'input-validator'
 		];
 		return (
 			<div
