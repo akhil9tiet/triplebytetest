@@ -12,10 +12,6 @@ const InputValidator = () => {
 		let valArr = inputVal.split('');
 		let lastDigit = valArr[valArr.length - 1];
 
-		if (!Number(inputVal)) {
-			setVal(val);
-		}
-
 		if (lastDigit === '%') {
 			valArr.pop();
 		}
@@ -30,7 +26,7 @@ const InputValidator = () => {
 	return (
 		<div>
 			<form style={{ left: '45vw', top: '30vh', position: 'relative' }}>
-				<label for='interest'>Interest Rate: </label>
+				<label to='interest'>Interest Rate: </label>
 				<br />
 				<input
 					style={{ height: '50px', width: '300px', fontSize: '24px' }}
@@ -38,13 +34,13 @@ const InputValidator = () => {
 					id='interest'
 					name='interest'
 					placeholder='%'
-					value={val}
+					defaultValue={val}
 					onChange={valHandler}
-					// onKeyDown={(e) => e.target.value.match[/^[0-9]$/]}
+					// onKeyDown={(e) => e.target.value.match[/^[0-9]/]}
 				/>
 				<div
 					id='interestError'
-					class='error hidden'
+					className='error hidden'
 					style={{ height: '50px', width: '300px', fontSize: '24px', paddingTop: '20px' }}>
 					{errmessage}
 				</div>

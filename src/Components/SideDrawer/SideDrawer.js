@@ -41,6 +41,7 @@ export default function TemporaryDrawer() {
 			'traffic-light',
 			'svg-path-scroller',
 			'contact-us',
+			'signup-form',
 			'delta-isometric',
 			'imdb-api',
 			'stepper',
