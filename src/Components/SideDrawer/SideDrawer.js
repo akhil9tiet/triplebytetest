@@ -41,12 +41,15 @@ export default function TemporaryDrawer() {
 			'traffic-light',
 			'svg-path-scroller',
 			'contact-us',
+			'signup-form',
 			'delta-isometric',
 			'imdb-api',
 			'stepper',
 			'search-todo',
 			'debouncer',
-			'throttler'
+			'throttler',
+			'input-validator',
+			'football-api'
 		];
 		return (
 			<div

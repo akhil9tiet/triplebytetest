@@ -1,0 +1,39 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+form {
+	border-radius: 5px;
+	border-color: #a3b1c6;
+	outline: none;
+}
+
+.input-container label {
+	width: 100%;
+	margin-bottom: 10px;
+	font-size: 24px;
+}
+.input-container input {
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 10px 5px 10px 5px;
+	font-size: 24px;
+}
+
+error {
+	border-color: red;
+}
+
+form button {
+	width: 80%;
+	height: 100%;
+	padding: 10px 5px 10px 5px;
+	border-radius: 5px;
+	border-color: #a3b1c6;
+	color: #a3b1c6;
+	font-size: 24px;
+	background-color: #e0e5ec;
+}

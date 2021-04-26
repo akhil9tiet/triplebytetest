@@ -15,6 +15,10 @@ import IMDBapi from './Components/IMDBapi';
 import StepperComponent from './Components/Stepper';
 import SearchTodo from './Components/SearchTodo/SearchTodo';
 import { Debouncer, Throttler } from './Components/CoreImplementations';
+import InputValidator from './Components/InputValidator/InputValidator';
+import SignupForm from './Components/Forms/SignupForm';
+import FootballAPI from './Components/Hackerank/FootballAPI';
+
 import { Switch, Route } from 'react-router-dom';
 
 import './App.css';
@@ -51,6 +55,10 @@ function App() {
 				<Route exact path='/search-todo' component={SearchTodo}></Route>
 				<Route exact path='/debouncer' component={Debouncer}></Route>
 				<Route exact path='/throttler' component={Throttler}></Route>
+				<Route exact path='/input-validator' component={InputValidator}></Route>
+				<Route exact path='/signup-form' component={SignupForm}></Route>
+				<Route exact path='/football-api' component={FootballAPI}></Route>
+				{/* </div> */}
 				{/* </div> */}
 			</Switch>
 		</React.Fragment>
