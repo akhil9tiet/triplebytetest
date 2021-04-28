@@ -49,7 +49,8 @@ export default function TemporaryDrawer() {
 			'debouncer',
 			'throttler',
 			'input-validator',
-			'football-api'
+			'football-api',
+			'github-top-js'
 		];
 		return (
 			<div

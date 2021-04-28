@@ -2,6 +2,7 @@ import React from 'react';
 import Home from './Components/Home';
 import Cards from './Components/Cards/Cards';
 import DadJokes from './Components/API_call/DadJokes';
+import Github_top_stars from './Components/API_call/Github_top_stars';
 import LiveSearch from './Components/LiveSearch';
 import SideDrawer from './Components/SideDrawer';
 import SendPropsUp from './Components/SendPropsUp';
@@ -41,6 +42,7 @@ function App() {
 				<Route exact path='/' component={Home} />
 				<Route path='/home' component={Home} />
 				<Route exact path='/dad-jokes' component={DadJokes} />
+				<Route exact path='/github-top-js' component={Github_top_stars} />
 				<Route exact path='/live-search' component={LiveSearch} />
 				<Route exact path='/list-cards' component={Cards}></Route>
 				<Route exact path='/server-logs' render={(props) => <Report logs={logs} {...props} />}></Route>
