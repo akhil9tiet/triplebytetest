@@ -18,7 +18,6 @@ const useStyles = makeStyles({
 	card: {
 		borderRadius: '50px',
 		background: '#d6e3f0',
-		boxShadow: '5px 5px 10px #d6e3f0 -5px -5px 10px #ffffff',
 		flex: `1 1 160px`,
 		padding: '20px',
 		marginLeft: '2vw',
@@ -41,7 +40,7 @@ const useStyles = makeStyles({
 	footer: {
 		bottom: 0,
 		padding: '20px 50px 20px 50px',
-    minWidth:'100vw',
+		minWidth: '100vw',
 		position: 'fixed',
 		alignContent: 'center',
 		backgroundColor: '#4d4d4d',
@@ -51,12 +50,21 @@ const useStyles = makeStyles({
 		alignItems: 'center',
 		margin: '0 5px',
 		padding: '8px 24px',
-		background: '#b8c2cc',
-		color: '#fff',
+		background: '#9d9dad',
+		color: '#444',
 		cursor: 'pointer',
-		border: '1px solid #fff',
-		outline: '0',
 		fontWeight: '300',
+	},
+	disable: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		margin: '0 5px',
+		padding: '8px 24px',
+		fontWeight: '300',
+		background: '#d5d5d5',
+		color: '#eee',
+		pointerEvents: 'none',
+		cursor: 'not-allowed',
 	},
 });
 
@@ -66,7 +74,7 @@ export default function GetTopStars() {
 	const classes = useStyles();
 
 	useEffect(() => {
-		fetchData(page).then((res) => setData(res.items));
+		fetchData(page).then((res) => setData(res.items.sort((a, b) => b.stargazers_count - a.stargazers_count)));
 	}, [page]);
 
 	return (
@@ -81,7 +89,7 @@ export default function GetTopStars() {
 					{(data || []).map((repo, index) => (
 						<div key={index}>
 							<div className={classes.card}>
-								<img src={repo.owner.avatar_url} height={200} width={200} alt={index} />
+								<img src={repo.owner.avatar_url} height={100} width={100} alt={index} />
 								<h1 className={classes.title}>{repo.name}</h1>
 								<h2 className={classes.pos}>{repo.stargazers_count}</h2>
 							</div>
@@ -89,10 +97,12 @@ export default function GetTopStars() {
 					))}
 				</div>
 				<div className={classes.footer}>
-					<button className={classes.button} onClick={() => setPage(page - 1)}>
+					<button
+						className={page > 1 ? classes.button : classes.disable}
+						onClick={() => (page > 1 ? setPage(page - 1) : setPage(1))}>
 						Prev
 					</button>
-					<button className={classes.button} onClick={() => setPage(page + 1)}>
+					<button className={data ? classes.button : classes.disable} onClick={() => setPage(page + 1)}>
 						Next
 					</button>
 				</div>
