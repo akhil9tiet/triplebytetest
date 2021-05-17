@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const fetchData = async (page) => {
 	let response = await fetch(
@@ -28,6 +29,9 @@ const useStyles = makeStyles({
 	},
 	title: {
 		fontSize: 20,
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent:'center',
 		padding: 10,
 		borderRadius: 5,
 		color: '#9d9dad',
@@ -68,44 +72,65 @@ const useStyles = makeStyles({
 	},
 });
 
+function reducer(state, action) {
+	switch (action.type) {
+		case 'next':
+			return { page: state.page + 1 };
+		case 'prev':
+			return { page: state.page - 1 };
+		default:
+			return { page: state.page };
+	}
+}
+
 export default function GetTopStars() {
-	let [page, setPage] = useState(1);
+	// let [page, setPage] = useState(1);
+	const initialState = { page: 1 };
 	let [data, setData] = useState([]);
+	let [state, dispatch] = useReducer(reducer, initialState);
+
 	const classes = useStyles();
 
 	useEffect(() => {
-		fetchData(page).then((res) => setData(res.items.sort((a, b) => b.stargazers_count - a.stargazers_count)));
-	}, [page]);
+		fetchData(state.page).then((res) => setData(res.items.sort((a, b) => b.stargazers_count - a.stargazers_count)));
+	}, [state.page]);
 
 	return (
 		<React.Fragment>
 			<div className={classes.container}>
-				<div className='title'>
-					<h1>Top Starred Javascript repos</h1>
-					<p>Showing page {page}</p>
-				</div>
-
-				<div className={classes.content}>
-					{(data || []).map((repo, index) => (
-						<div key={index}>
-							<div className={classes.card}>
-								<img src={repo.owner.avatar_url} height={100} width={100} alt={index} />
-								<h1 className={classes.title}>{repo.name}</h1>
-								<h2 className={classes.pos}>{repo.stargazers_count}</h2>
-							</div>
+				{!data.length ? (
+					<CircularProgress />
+				) : (
+					<div>
+						<div className='title'>
+							<h1>Top Starred Javascript repos</h1>
+							<p>Showing page {state.page}</p>
 						</div>
-					))}
-				</div>
-				<div className={classes.footer}>
-					<button
-						className={page > 1 ? classes.button : classes.disable}
-						onClick={() => (page > 1 ? setPage(page - 1) : setPage(1))}>
-						Prev
-					</button>
-					<button className={data ? classes.button : classes.disable} onClick={() => setPage(page + 1)}>
-						Next
-					</button>
-				</div>
+						<div className={classes.content}>
+							{(data || []).map((repo, index) => (
+								<div key={index}>
+									<div className={classes.card}>
+										<img src={repo.owner.avatar_url} height={100} width={100} alt={index} />
+										<h1 className={classes.title}>{repo.name}</h1>
+										<h2 className={classes.pos}>{repo.stargazers_count}</h2>
+									</div>
+								</div>
+							))}
+						</div>
+						<div className={classes.footer}>
+							<button
+								className={state.page > 1 ? classes.button : classes.disable}
+								onClick={() => (state.page > 1 ? dispatch({ type: 'prev' }) : dispatch({ type: '' }))}>
+								Prev
+							</button>
+							<button
+								className={data ? classes.button : classes.disable}
+								onClick={() => dispatch({ type: 'next' })}>
+								Next
+							</button>
+						</div>
+					</div>
+				)}
 			</div>
 		</React.Fragment>
 	);
